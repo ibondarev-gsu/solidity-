@@ -4,7 +4,7 @@ import com.peartech.contracts.GameV2;
 import com.peartech.dao.Dao;
 import com.peartech.entity.Room;
 import com.peartech.entity.enums.Stage;
-import com.peartech.service.GameV2Service;
+import com.peartech.service.GameV2ServiceImlp;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import lombok.extern.slf4j.Slf4j;
@@ -27,13 +27,13 @@ public class CommitEventListener {
     private final GameV2 gameV2;
     private final Scheduler scheduler;
 
-    private final GameV2Service gameV2Service;
+    private final GameV2ServiceImlp gameV2Service;
     private Disposable disposable;
 
     public CommitEventListener(@NotNull Dao dao,
                                @NotNull GameV2 gameV2,
                                @NotNull Scheduler scheduler,
-                               @NotNull GameV2Service gameV2Service) {
+                               @NotNull GameV2ServiceImlp gameV2Service) {
         this.dao = dao;
         this.gameV2 = gameV2;
         this.scheduler = scheduler;
@@ -65,7 +65,8 @@ public class CommitEventListener {
         }
 
         if (room.getPlayer0().isCommited() && room.getPlayer1().isCommited()) {
-//            gameV2Service.changeStage(room.getId(), Stage.REVEAL);
+            gameV2Service.nextStage(room.getId(), Stage.REVEAL);
+            log.info("Changed stage for roomId={} from commit to reveal", room.getId());
         }
     }
 

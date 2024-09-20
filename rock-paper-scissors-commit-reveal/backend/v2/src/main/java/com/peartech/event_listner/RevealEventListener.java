@@ -1,8 +1,10 @@
 package com.peartech.event_listner;
 
+import com.peartech.contracts.GameV2;
 import com.peartech.dao.Dao;
 import com.peartech.entity.Room;
 import com.peartech.entity.enums.Choice;
+import com.peartech.service.GameV2Service;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import lombok.extern.slf4j.Slf4j;
@@ -20,26 +22,23 @@ import static org.web3j.protocol.core.DefaultBlockParameterName.LATEST;
 @Slf4j
 @Component
 public class RevealEventListener {
-//    private final Dao dao;
-//    private final RockPaperScissors rockPaperScissors;
-//    private final Scheduler scheduler;
-//    private RockPaperScissorsService rockPaperScissorsService;
-//    private Disposable disposable;
-//
-//
-//    public RevealEventListener(@NotNull Dao dao,
-//                               @NotNull RockPaperScissors rockPaperScissors,
-//                               @NotNull Scheduler scheduler,
-//                               @NotNull RockPaperScissorsService rockPaperScissorsService) {
-//        this.dao = dao;
-//        this.rockPaperScissors = rockPaperScissors;
-//        this.scheduler = scheduler;
-//        this.rockPaperScissorsService = rockPaperScissorsService;
-//    }
-//
+    private final Dao dao;
+    private final GameV2 gameV2;
+    private final Scheduler scheduler;
+    private GameV2Service gameV2Service;
+    private Disposable disposable;
+    public RevealEventListener(@NotNull Dao dao,
+                               @NotNull GameV2 gameV2,
+                               @NotNull Scheduler scheduler,
+                               @NotNull GameV2Service gameV2Service) {
+        this.dao = dao;
+        this.gameV2 = gameV2;
+        this.scheduler = scheduler;
+        this.gameV2Service = gameV2Service;
+    }
 //    @PostConstruct
 //    private void postConstruct() {
-//            disposable = rockPaperScissors.revealEventFlowable(EARLIEST, LATEST)// Тут нужно будет с бд брать последний обработанный EARLIEST
+//            disposable = gameV2.revealedEventFlowable(EARLIEST, LATEST)// Тут нужно будет с бд брать последний обработанный EARLIEST
 //                .subscribeOn(scheduler)
 //                .subscribe(this::handle);
 //    }
