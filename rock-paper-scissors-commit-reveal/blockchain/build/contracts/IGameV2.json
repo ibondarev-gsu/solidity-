@@ -1,0 +1,1452 @@
+{
+  "contractName": "IGameV2",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "AlreadyCommited",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "AlreadyRevealed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidHash",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "PlayerNotExist",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "RoomNotExist",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "WrongChoice",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "WrongStage",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        }
+      ],
+      "name": "Commited",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum IGameV2.Stage",
+          "name": "stage",
+          "type": "uint8"
+        }
+      ],
+      "name": "Distributed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "winner",
+          "type": "address"
+        }
+      ],
+      "name": "GameResult",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum IGameV2.Choice",
+          "name": "choice",
+          "type": "uint8"
+        }
+      ],
+      "name": "Revealed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "player0",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "player1",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        }
+      ],
+      "name": "RoomCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum IGameV2.Stage",
+          "name": "stage",
+          "type": "uint8"
+        }
+      ],
+      "name": "StageChanged",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "playerA",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "playerB",
+          "type": "address"
+        }
+      ],
+      "name": "createRoom",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "commitment",
+          "type": "bytes32"
+        }
+      ],
+      "name": "commit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"AlreadyCommited\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AlreadyRevealed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidHash\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PlayerNotExist\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RoomNotExist\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"WrongChoice\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"WrongStage\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"player\",\"type\":\"address\"}],\"name\":\"Commited\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"enum IGameV2.Stage\",\"name\":\"stage\",\"type\":\"uint8\"}],\"name\":\"Distributed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"winner\",\"type\":\"address\"}],\"name\":\"GameResult\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"player\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"enum IGameV2.Choice\",\"name\":\"choice\",\"type\":\"uint8\"}],\"name\":\"Revealed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"player0\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"player1\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"}],\"name\":\"RoomCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"enum IGameV2.Stage\",\"name\":\"stage\",\"type\":\"uint8\"}],\"name\":\"StageChanged\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"commitment\",\"type\":\"bytes32\"}],\"name\":\"commit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"playerA\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"playerB\",\"type\":\"address\"}],\"name\":\"createRoom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/v2/interfaces/IGameV2.sol\":\"IGameV2\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/v2/interfaces/IGameV2.sol\":{\"keccak256\":\"0x116598acf3d92e436edbe12ba4f9de4369911810cbc56fc9eaa19aab6e5883a6\",\"license\":\"Unlicense\",\"urls\":[\"bzz-raw://3808758d1a029b9466a4432b92793df2d37270e927a750a9c9ecb0aeca93aec3\",\"dweb:/ipfs/QmbigrLhJDk9q4LVo374MZ1CuPZWSe4gWrJYw3ieNmSMPm\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "//SPDX-License-Identifier: Unlicense\r\npragma solidity ^0.8.7;\r\n\r\ninterface IGameV2 {\r\n\r\n    struct Player {\r\n        address playerAddress;\r\n        bool commited;\r\n        bool revealed;\r\n        Choice choice;\r\n        bytes32 commitment;\r\n    }\r\n\r\n    enum Stage {\r\n        Commit,\r\n        Reveal,\r\n        Distribute\r\n    }\r\n\r\n    enum Choice {\r\n        None,\r\n        Rock,\r\n        Paper,\r\n        Scissors\r\n    }\r\n\r\n    struct Room {\r\n        uint256 id;\r\n        Player player0;\r\n        Player player1;\r\n        Stage stage;\r\n        uint256 gameCounter;\r\n    }\r\n\r\n    error PlayerNotExist();\r\n    error RoomNotExist();\r\n    error WrongStage();\r\n    error WrongChoice();\r\n    error AlreadyCommited();\r\n    error AlreadyRevealed();\r\n    error InvalidHash();\r\n\r\n    event RoomCreated(address indexed player0, address indexed player1, uint256 roomId);\r\n    event Commited(uint256 indexed roomId, address indexed player);\r\n    event Revealed(uint256 indexed roomId, address indexed player, Choice choice);\r\n    event Distributed(uint256 indexed roomId, Stage stage);\r\n    event StageChanged(uint256 indexed roomId, Stage stage);\r\n    event GameResult(uint256 indexed roomId, address winner);\r\n\r\n    function createRoom(address playerA, address playerB) external;\r\n    function commit(uint256 roomId, bytes32 commitment) external;\r\n}",
+  "sourcePath": "C:\\Users\\vania\\Documents\\GitHub\\rock-paper-scissors-solidity\\blockchain\\contracts\\v2\\interfaces\\IGameV2.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/v2/interfaces/IGameV2.sol",
+    "exportedSymbols": {
+      "IGameV2": [
+        13743
+      ]
+    },
+    "id": 13744,
+    "license": "Unlicense",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 13636,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".7"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "38:23:136"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IGameV2",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 13743,
+        "linearizedBaseContracts": [
+          13743
+        ],
+        "name": "IGameV2",
+        "nameLocation": "75:7:136",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "IGameV2.Player",
+            "id": 13648,
+            "members": [
+              {
+                "constant": false,
+                "id": 13638,
+                "mutability": "mutable",
+                "name": "playerAddress",
+                "nameLocation": "125:13:136",
+                "nodeType": "VariableDeclaration",
+                "scope": 13648,
+                "src": "117:21:136",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 13637,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "117:7:136",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 13640,
+                "mutability": "mutable",
+                "name": "commited",
+                "nameLocation": "154:8:136",
+                "nodeType": "VariableDeclaration",
+                "scope": 13648,
+                "src": "149:13:136",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 13639,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "149:4:136",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 13642,
+                "mutability": "mutable",
+                "name": "revealed",
+                "nameLocation": "178:8:136",
+                "nodeType": "VariableDeclaration",
+                "scope": 13648,
+                "src": "173:13:136",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 13641,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "173:4:136",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 13645,
+                "mutability": "mutable",
+                "name": "choice",
+                "nameLocation": "204:6:136",
+                "nodeType": "VariableDeclaration",
+                "scope": 13648,
+                "src": "197:13:136",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_enum$_Choice_$13657",
+                  "typeString": "enum IGameV2.Choice"
+                },
+                "typeName": {
+                  "id": 13644,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 13643,
+                    "name": "Choice",
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 13657,
+                    "src": "197:6:136"
+                  },
+                  "referencedDeclaration": 13657,
+                  "src": "197:6:136",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_Choice_$13657",
+                    "typeString": "enum IGameV2.Choice"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 13647,
+                "mutability": "mutable",
+                "name": "commitment",
+                "nameLocation": "229:10:136",
+                "nodeType": "VariableDeclaration",
+                "scope": 13648,
+                "src": "221:18:136",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 13646,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "221:7:136",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Player",
+            "nameLocation": "99:6:136",
+            "nodeType": "StructDefinition",
+            "scope": 13743,
+            "src": "92:155:136",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "IGameV2.Stage",
+            "id": 13652,
+            "members": [
+              {
+                "id": 13649,
+                "name": "Commit",
+                "nameLocation": "277:6:136",
+                "nodeType": "EnumValue",
+                "src": "277:6:136"
+              },
+              {
+                "id": 13650,
+                "name": "Reveal",
+                "nameLocation": "294:6:136",
+                "nodeType": "EnumValue",
+                "src": "294:6:136"
+              },
+              {
+                "id": 13651,
+                "name": "Distribute",
+                "nameLocation": "311:10:136",
+                "nodeType": "EnumValue",
+                "src": "311:10:136"
+              }
+            ],
+            "name": "Stage",
+            "nameLocation": "260:5:136",
+            "nodeType": "EnumDefinition",
+            "src": "255:73:136"
+          },
+          {
+            "canonicalName": "IGameV2.Choice",
+            "id": 13657,
+            "members": [
+              {
+                "id": 13653,
+                "name": "None",
+                "nameLocation": "359:4:136",
+                "nodeType": "EnumValue",
+                "src": "359:4:136"
+              },
+              {
+                "id": 13654,
+                "name": "Rock",
+                "nameLocation": "374:4:136",
+                "nodeType": "EnumValue",
+                "src": "374:4:136"
+              },
+              {
+                "id": 13655,
+                "name": "Paper",
+                "nameLocation": "389:5:136",
+                "nodeType": "EnumValue",
+                "src": "389:5:136"
+              },
+              {
+                "id": 13656,
+                "name": "Scissors",
+                "nameLocation": "405:8:136",
+                "nodeType": "EnumValue",
+                "src": "405:8:136"
+              }
+            ],
+            "name": "Choice",
+            "nameLocation": "341:6:136",
+            "nodeType": "EnumDefinition",
+            "src": "336:84:136"
+          },
+          {
+            "canonicalName": "IGameV2.Room",
+            "id": 13671,
+            "members": [
+              {
+                "constant": false,
+                "id": 13659,
+                "mutability": "mutable",
+                "name": "id",
+                "nameLocation": "459:2:136",
+                "nodeType": "VariableDeclaration",
+                "scope": 13671,
+                "src": "451:10:136",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 13658,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "451:7:136",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 13662,
+                "mutability": "mutable",
+                "name": "player0",
+                "nameLocation": "479:7:136",
+                "nodeType": "VariableDeclaration",
+                "scope": 13671,
+                "src": "472:14:136",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Player_$13648_storage_ptr",
+                  "typeString": "struct IGameV2.Player"
+                },
+                "typeName": {
+                  "id": 13661,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 13660,
+                    "name": "Player",
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 13648,
+                    "src": "472:6:136"
+                  },
+                  "referencedDeclaration": 13648,
+                  "src": "472:6:136",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Player_$13648_storage_ptr",
+                    "typeString": "struct IGameV2.Player"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 13665,
+                "mutability": "mutable",
+                "name": "player1",
+                "nameLocation": "504:7:136",
+                "nodeType": "VariableDeclaration",
+                "scope": 13671,
+                "src": "497:14:136",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Player_$13648_storage_ptr",
+                  "typeString": "struct IGameV2.Player"
+                },
+                "typeName": {
+                  "id": 13664,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 13663,
+                    "name": "Player",
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 13648,
+                    "src": "497:6:136"
+                  },
+                  "referencedDeclaration": 13648,
+                  "src": "497:6:136",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Player_$13648_storage_ptr",
+                    "typeString": "struct IGameV2.Player"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 13668,
+                "mutability": "mutable",
+                "name": "stage",
+                "nameLocation": "528:5:136",
+                "nodeType": "VariableDeclaration",
+                "scope": 13671,
+                "src": "522:11:136",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_enum$_Stage_$13652",
+                  "typeString": "enum IGameV2.Stage"
+                },
+                "typeName": {
+                  "id": 13667,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 13666,
+                    "name": "Stage",
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 13652,
+                    "src": "522:5:136"
+                  },
+                  "referencedDeclaration": 13652,
+                  "src": "522:5:136",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_Stage_$13652",
+                    "typeString": "enum IGameV2.Stage"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 13670,
+                "mutability": "mutable",
+                "name": "gameCounter",
+                "nameLocation": "552:11:136",
+                "nodeType": "VariableDeclaration",
+                "scope": 13671,
+                "src": "544:19:136",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 13669,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "544:7:136",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Room",
+            "nameLocation": "435:4:136",
+            "nodeType": "StructDefinition",
+            "scope": 13743,
+            "src": "428:143:136",
+            "visibility": "public"
+          },
+          {
+            "errorSelector": "1f427354",
+            "id": 13673,
+            "name": "PlayerNotExist",
+            "nameLocation": "585:14:136",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 13672,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "599:2:136"
+            },
+            "src": "579:23:136"
+          },
+          {
+            "errorSelector": "b70c1fec",
+            "id": 13675,
+            "name": "RoomNotExist",
+            "nameLocation": "614:12:136",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 13674,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "626:2:136"
+            },
+            "src": "608:21:136"
+          },
+          {
+            "errorSelector": "a05e34ba",
+            "id": 13677,
+            "name": "WrongStage",
+            "nameLocation": "641:10:136",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 13676,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "651:2:136"
+            },
+            "src": "635:19:136"
+          },
+          {
+            "errorSelector": "20edc185",
+            "id": 13679,
+            "name": "WrongChoice",
+            "nameLocation": "666:11:136",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 13678,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "677:2:136"
+            },
+            "src": "660:20:136"
+          },
+          {
+            "errorSelector": "fc507a31",
+            "id": 13681,
+            "name": "AlreadyCommited",
+            "nameLocation": "692:15:136",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 13680,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "707:2:136"
+            },
+            "src": "686:24:136"
+          },
+          {
+            "errorSelector": "a89ac151",
+            "id": 13683,
+            "name": "AlreadyRevealed",
+            "nameLocation": "722:15:136",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 13682,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "737:2:136"
+            },
+            "src": "716:24:136"
+          },
+          {
+            "errorSelector": "0af806e0",
+            "id": 13685,
+            "name": "InvalidHash",
+            "nameLocation": "752:11:136",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 13684,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "763:2:136"
+            },
+            "src": "746:20:136"
+          },
+          {
+            "anonymous": false,
+            "eventSelector": "6849f7a409ad97d39c5ffa074bf765330bf1a574da99d4c4831196ecd77ea8da",
+            "id": 13693,
+            "name": "RoomCreated",
+            "nameLocation": "780:11:136",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 13692,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13687,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "player0",
+                  "nameLocation": "808:7:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13693,
+                  "src": "792:23:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 13686,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "792:7:136",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13689,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "player1",
+                  "nameLocation": "833:7:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13693,
+                  "src": "817:23:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 13688,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "817:7:136",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13691,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "roomId",
+                  "nameLocation": "850:6:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13693,
+                  "src": "842:14:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13690,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "842:7:136",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "791:66:136"
+            },
+            "src": "774:84:136"
+          },
+          {
+            "anonymous": false,
+            "eventSelector": "2f63308b073d0d25029a549b999d196c6bbc8b3bdb3b694d879a74d070ddbe9a",
+            "id": 13699,
+            "name": "Commited",
+            "nameLocation": "870:8:136",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 13698,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13695,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "roomId",
+                  "nameLocation": "895:6:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13699,
+                  "src": "879:22:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13694,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "879:7:136",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13697,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "player",
+                  "nameLocation": "919:6:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13699,
+                  "src": "903:22:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 13696,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "903:7:136",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "878:48:136"
+            },
+            "src": "864:63:136"
+          },
+          {
+            "anonymous": false,
+            "eventSelector": "c98953cfdaf1355ff1a9db2d4975230864cb314b479eb1b02301c65234912163",
+            "id": 13708,
+            "name": "Revealed",
+            "nameLocation": "939:8:136",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 13707,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13701,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "roomId",
+                  "nameLocation": "964:6:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13708,
+                  "src": "948:22:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13700,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "948:7:136",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13703,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "player",
+                  "nameLocation": "988:6:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13708,
+                  "src": "972:22:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 13702,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "972:7:136",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13706,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "choice",
+                  "nameLocation": "1003:6:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13708,
+                  "src": "996:13:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_Choice_$13657",
+                    "typeString": "enum IGameV2.Choice"
+                  },
+                  "typeName": {
+                    "id": 13705,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 13704,
+                      "name": "Choice",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 13657,
+                      "src": "996:6:136"
+                    },
+                    "referencedDeclaration": 13657,
+                    "src": "996:6:136",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_Choice_$13657",
+                      "typeString": "enum IGameV2.Choice"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "947:63:136"
+            },
+            "src": "933:78:136"
+          },
+          {
+            "anonymous": false,
+            "eventSelector": "086ca77780f625b30be699f65393fdd3a20fb84998ad766433671f13724846d3",
+            "id": 13715,
+            "name": "Distributed",
+            "nameLocation": "1023:11:136",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 13714,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13710,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "roomId",
+                  "nameLocation": "1051:6:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13715,
+                  "src": "1035:22:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13709,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1035:7:136",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13713,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "stage",
+                  "nameLocation": "1065:5:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13715,
+                  "src": "1059:11:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_Stage_$13652",
+                    "typeString": "enum IGameV2.Stage"
+                  },
+                  "typeName": {
+                    "id": 13712,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 13711,
+                      "name": "Stage",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 13652,
+                      "src": "1059:5:136"
+                    },
+                    "referencedDeclaration": 13652,
+                    "src": "1059:5:136",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_Stage_$13652",
+                      "typeString": "enum IGameV2.Stage"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1034:37:136"
+            },
+            "src": "1017:55:136"
+          },
+          {
+            "anonymous": false,
+            "eventSelector": "df37221aaffab5daec18329c74e9de71f26727289dfefd6e144987965be79ef3",
+            "id": 13722,
+            "name": "StageChanged",
+            "nameLocation": "1084:12:136",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 13721,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13717,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "roomId",
+                  "nameLocation": "1113:6:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13722,
+                  "src": "1097:22:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13716,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1097:7:136",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13720,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "stage",
+                  "nameLocation": "1127:5:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13722,
+                  "src": "1121:11:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_Stage_$13652",
+                    "typeString": "enum IGameV2.Stage"
+                  },
+                  "typeName": {
+                    "id": 13719,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 13718,
+                      "name": "Stage",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 13652,
+                      "src": "1121:5:136"
+                    },
+                    "referencedDeclaration": 13652,
+                    "src": "1121:5:136",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_Stage_$13652",
+                      "typeString": "enum IGameV2.Stage"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1096:37:136"
+            },
+            "src": "1078:56:136"
+          },
+          {
+            "anonymous": false,
+            "eventSelector": "52168158e6434b8371fc26fdea19228c2d597dcf7e88f75f3cfaaffb493909ef",
+            "id": 13728,
+            "name": "GameResult",
+            "nameLocation": "1146:10:136",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 13727,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13724,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "roomId",
+                  "nameLocation": "1173:6:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13728,
+                  "src": "1157:22:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13723,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1157:7:136",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13726,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "winner",
+                  "nameLocation": "1189:6:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13728,
+                  "src": "1181:14:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 13725,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1181:7:136",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1156:40:136"
+            },
+            "src": "1140:57:136"
+          },
+          {
+            "functionSelector": "f9a5918f",
+            "id": 13735,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "createRoom",
+            "nameLocation": "1214:10:136",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 13733,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13730,
+                  "mutability": "mutable",
+                  "name": "playerA",
+                  "nameLocation": "1233:7:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13735,
+                  "src": "1225:15:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 13729,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1225:7:136",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13732,
+                  "mutability": "mutable",
+                  "name": "playerB",
+                  "nameLocation": "1250:7:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13735,
+                  "src": "1242:15:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 13731,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1242:7:136",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1224:34:136"
+            },
+            "returnParameters": {
+              "id": 13734,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1267:0:136"
+            },
+            "scope": 13743,
+            "src": "1205:63:136",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "f2f03877",
+            "id": 13742,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "commit",
+            "nameLocation": "1283:6:136",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 13740,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13737,
+                  "mutability": "mutable",
+                  "name": "roomId",
+                  "nameLocation": "1298:6:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13742,
+                  "src": "1290:14:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13736,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1290:7:136",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13739,
+                  "mutability": "mutable",
+                  "name": "commitment",
+                  "nameLocation": "1314:10:136",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13742,
+                  "src": "1306:18:136",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 13738,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1306:7:136",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1289:36:136"
+            },
+            "returnParameters": {
+              "id": 13741,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1334:0:136"
+            },
+            "scope": 13743,
+            "src": "1274:61:136",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 13744,
+        "src": "65:1273:136",
+        "usedErrors": [
+          13673,
+          13675,
+          13677,
+          13679,
+          13681,
+          13683,
+          13685
+        ]
+      }
+    ],
+    "src": "38:1300:136"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.14+commit.80d49f37.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.7",
+  "updatedAt": "2022-07-15T17:08:10.483Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

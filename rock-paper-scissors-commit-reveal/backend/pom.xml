@@ -2,6 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <modules>
+        <module>v1</module>
+        <module>v2</module>
+    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -18,8 +23,11 @@
     <description>rock-paper-scissors</description>
 
     <properties>
-        <java.version>17</java.version>
-        <web3j.version>4.8.2</web3j.version>
+        <java.version>11</java.version>
+        <web3j.core.version>4.9.2</web3j.core.version>
+        <web3j.test.version>4.8.2</web3j.test.version>
+        <javax.annotation.version>1.3.2</javax.annotation.version>
+        <javax.validation.version>2.0.1.Final</javax.validation.version>
     </properties>
 
     <dependencies>
@@ -35,6 +43,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>${javax.annotation.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${javax.validation.version}</version>
+            <scope>provided</scope>
         </dependency>
         <!--        <dependency>-->
         <!--            <groupId>org.springframework.boot</groupId>-->
@@ -57,12 +77,12 @@
         <dependency>
             <groupId>org.web3j</groupId>
             <artifactId>core</artifactId>
-            <version>${web3j.version}</version>
+            <version>${web3j.core.version}</version>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.web3j</groupId>-->
 <!--            <artifactId>web3j-unit</artifactId>-->
-<!--            <version>${web3j.version}</version>-->
+<!--            <version>${web3j.test.version}</version>-->
 <!--        </dependency>-->
     </dependencies>
 
@@ -80,6 +100,19 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <version>3.8.1</version>-->
+<!--                <configuration>-->
+<!--                    <release>11</release>-->
+<!--                    <compilerArgs>-->
+<!--                        <arg>&#45;&#45;add-modules</arg>-->
+<!--                        <arg>java.xml.ws.annotation</arg>-->
+<!--                    </compilerArgs>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
@@ -96,6 +129,14 @@
 <!--            <id>hyperledger</id>-->
 <!--            <name>JCenter</name>-->
 <!--            <url>https://hyperledger.jfrog.io/artifactory/besu-maven/</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>false</enabled>-->
+<!--            </snapshots>-->
+<!--        </repository>-->
+<!--        <repository>-->
+<!--            <id>central</id>-->
+<!--            <name>Maven Central</name>-->
+<!--            <url>https://repo1.maven.org/maven2/</url>-->
 <!--            <snapshots>-->
 <!--                <enabled>false</enabled>-->
 <!--            </snapshots>-->
@@ -121,6 +162,7 @@
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
         </pluginRepository>
+
 <!--        <pluginRepository>-->
 <!--            <id>hyperledger</id>-->
 <!--            <name>JCenter</name>-->

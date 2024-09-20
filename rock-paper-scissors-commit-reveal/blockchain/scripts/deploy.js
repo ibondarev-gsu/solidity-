@@ -3,9 +3,10 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-const { ethers } = require("hardhat")
-
-let owner, firtsPlayer, secondPlayer, roomId, targetContract;
+const hre = require("hardhat");
+const ethers = hre.ethers;
+const fs = require('fs');
+const path = require('path');
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -17,12 +18,49 @@ async function main() {
 
   // We get the contract to deploy
 
-  [owner, firtsPlayer, secondPlayer, outsider] = await ethers.getSigners();
-  targetContract = await (await ethers.getContractFactory("RockPaperScissors", owner)).deploy();
-  await targetContract.deployed();
+  if (network.name === "hardhat") {
+    console.warn(
+      "You are trying to deploy a contract to the Hardhat Network, which" +
+        "gets automatically created and destroyed every time. Use the Hardhat" +
+        " option '--network localhost'"
+    );
+  }
 
-  console.log(targetContract.deployTransaction);
-  console.log(targetContract.address);
+  const [owner, bot] = await ethers.getSigners();
+
+  const roomFactoryV1 = await (await ethers.getContractFactory("RoomFactoryV1", owner)).deploy(bot.address);
+  await roomFactoryV1.deployed();
+
+  const roomV1 = await ethers.getContractFactory("RoomV1");
+
+  console.log("Owner address =", owner.address);
+  console.log("Bot address =", bot.address);
+  console.log("RoomFactoryV1 address =", roomFactoryV1.address);
+
+  saveFrontendFiles({RoomFactoryV1: roomFactoryV1, RoomV1: roomV1});
+}
+
+function saveFrontendFiles(contracts) {
+  const contractsDir = path.join(__dirname, "../../", "frontend/src/contracts");
+  if(!fs.existsSync(contractsDir)) {
+    fs.mkdirSync(contractsDir);
+  }
+
+  Object.entries(contracts).forEach(contractItem => {
+    const [name, contract] = contractItem;
+    if(contract && contract.address) {
+      fs.writeFileSync(
+        path.join(contractsDir, "/", name + "-contract-address.json"),
+        JSON.stringify({[name]: contract.address}, undefined, 2)
+      )
+    }
+
+    const contractArtifact = hre.artifacts.readArtifactSync(name);
+    fs.writeFileSync(
+      path.join(contractsDir, "/", name + ".json"),
+      JSON.stringify(contractArtifact, null, 2)
+    )
+  })
 }
 
 // We recommend this pattern to be able to use async/await everywhere
