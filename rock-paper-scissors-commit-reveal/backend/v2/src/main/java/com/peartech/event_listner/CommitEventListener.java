@@ -15,6 +15,7 @@ import javax.annotation.PreDestroy;
 import javax.validation.constraints.NotNull;
 
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 import static org.web3j.protocol.core.DefaultBlockParameterName.EARLIEST;
 import static org.web3j.protocol.core.DefaultBlockParameterName.LATEST;
@@ -47,7 +48,7 @@ public class CommitEventListener {
                 .subscribe(this::handle);
     }
 
-    private void handle(GameV2.CommitedEventResponse eventResponse) {
+    private void handle(GameV2.CommitedEventResponse eventResponse) throws ExecutionException, InterruptedException {
         Optional<Room> roomOptional = dao.getRoomById(eventResponse.roomId);
         if (roomOptional.isEmpty()) {
             throw new IllegalArgumentException("Room with id={" + eventResponse.roomId + "} does not exist");
@@ -65,7 +66,7 @@ public class CommitEventListener {
         }
 
         if (room.getPlayer0().isCommited() && room.getPlayer1().isCommited()) {
-            gameV2Service.nextStage(room.getId(), Stage.REVEAL);
+            log.info("nextStage {}", gameV2Service.nextStage(room.getId(), Stage.REVEAL).get());
             log.info("Changed stage for roomId={} from commit to reveal", room.getId());
         }
     }

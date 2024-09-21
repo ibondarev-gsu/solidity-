@@ -43,6 +43,7 @@ let emitterRoomCreated;
 let emitterCommited;
 let emitterRevealed;
 let emitterStageChanged;
+let globalAccount; 
 
 function App() {
   const [account, setAccount] = useState();
@@ -60,11 +61,21 @@ function App() {
   const [room, setRoom] = useState(null);
   const [salt, setSalt] = useState();
   const [isCommited, setIsCommited] = useState(false);
+  const [stage, setStage] = useState(0);
   // const [isCommited, setIsCommited] = useState(false);
   const [choice, setChoice] = useState();
 
-  useEffect(() => {
-    loadBlockChainData();
+  //load meta info on start app
+  useEffect(async () => {
+    const network = await web3.eth.net.getNetworkType();
+    const accounts = await web3.eth.requestAccounts();
+    console.log('account', accounts[0]);
+    setAccount(accounts[0].toLowerCase());
+    globalAccount = accounts[0].toLowerCase();
+    console.log('Одинаковый регистр', accounts[0].toLowerCase() === accounts[0]);
+    setNetwork(network);
+    const gameV2 = new web3.eth.Contract(GAME_V2_ABI, GAME_V2_ADDRESS);
+    setGameV2(gameV2);
   }, []);
 
   //checks for changes in metamask
@@ -72,109 +83,106 @@ function App() {
     window.ethereum.on("accountsChanged", function (accounts) {
       console.log("accountsChanges", accounts);
       setAccount(accounts[0].toLowerCase());
-      console.log('Одинаковый регистр', accounts[0].toLowerCase() === accounts[0]);
+      globalAccount = accounts[0].toLowerCase();
     });
     return () => {
       window.ethereum.removeListener("accountsChanged");
     };
   }, [setAccount]);
 
+
+  //create RoomCreated event listener
   useEffect(() => {
     if (gameV2) {
-      console.log("emitterRoomCreated", emitterRoomCreated);
+      //delete prev RoomCreated event listener
       if(emitterRoomCreated) {
         emitterRoomCreated.removeAllListeners();
       }
-      emitterRoomCreated = gameV2.events
-        .RoomCreated({
-          filter: {
-            value: [],
-          },
-          fromBlock: 'latest',
-        })
-        .on("data", event => handleRoomCreateEvent(event, account))
-        .on("changed", (changed) => console.log('changed', changed))
-        .on("error", (err) => console.log('err', err))
-        .on("connected", (str) => console.log('connected to RoomCreated', str));  
-    }
-  }, [gameV2, account]);
-
-  
-  useEffect(() => {
-    if (room) {
-      console.log("emitterCommited", emitterCommited);
-      if(emitterCommited) {
-        emitterCommited.removeAllListeners();
-      }
-      emitterCommited = gameV2.events
-      .Commited({
-        filter: {
-          roomId: room.id,
-        },
-        fromBlock: "latest",
+      //create new Commited event listener
+      emitterRoomCreated = gameV2.events.RoomCreated({fromBlock: 'latest',})
+      .on("data", async (event) => {
+        if(event.returnValues.player0.toLowerCase() !== globalAccount && event.returnValues.player1.toLowerCase() !== globalAccount){
+          console.log("Room not for you");
+          return;
+        }
+        event.returnValues.player0.toLowerCase() !== globalAccount ? setOpponent(event.returnValues.player0.toLowerCase()) : setOpponent(event.returnValues.player1.toLowerCase())
+        setRoom(await gameV2.methods.getRoomById(event.returnValues.roomId).call());
+        createCommitedEventListener(gameV2, emitterCommited, event.returnValues.roomId);
+        createStageChangedEventListener(gameV2, emitterStageChanged, event.returnValues.roomId);
       })
-      .on("data", handleCommitedEvent)
       .on("changed", (changed) => console.log('changed', changed))
       .on("error", (err) => console.log('err', err))
-      .on("connected", (str) => console.log('connected to Commited', str));
-
-      // console.log("emitterRevealed", emitterRevealed);
-      // if(emitterRevealed) {
-      //   emitterRevealed.removeAllListeners();
-      // }
-      // emitterRevealed = gameV2.events
-      // .Revealed({
-      //   filter: {
-      //     roomId: room.id,
-      //   },
-      //   fromBlock: "latest",
-      // })
-      // .on("data", (data) => console.log(data))
-      // .on("changed", (changed) => console.log('changed', changed))
-      // .on("error", (err) => console.log('err', err))
-      // .on("connected", (str) => console.log('connected to Revealed', str));
-
-      console.log("emitterStageChanged", emitterStageChanged);
-      if(emitterStageChanged) {
-        emitterStageChanged.removeAllListeners();
-      }
-      emitterStageChanged = gameV2.events
-      .StageChanged({
-        filter: {
-          roomId: room.id,
-        },
-        fromBlock: "latest",
-      })
-      .on("data", (data) => console.log('data', data))
-      .on("changed", (changed) => console.log('changed', changed))
-      .on("error", (err) => console.log('err', err))
-      .on("connected", (str) => console.log('connected to StageChanged', str));
-
+      .on("connected", (str) => console.log('connected to RoomCreated', str));  
     }
-  }, [room]);
+  }, [gameV2]);
 
-  const loadBlockChainData = async () => {
-    const network = await web3.eth.net.getNetworkType();
-    const accounts = await web3.eth.requestAccounts();
-    console.log('account', accounts[0])
-    setAccount(accounts[0].toLowerCase());
-    console.log('Одинаковый регистр', accounts[0].toLowerCase() === accounts[0]);
-    setNetwork(network);
-    const gameV2 = new web3.eth.Contract(GAME_V2_ABI, GAME_V2_ADDRESS);
-    setGameV2(gameV2);
-  };
+  //create Commited event listeners
+  const createCommitedEventListener = (contract, listener, id) => {
+    //delete prev Commited event listener
+    if(listener) {
+      listener.removeAllListeners();
+    }
+    //create new Commited event listener
+    listener = contract.events.Commited({
+      filter: {roomId: id},
+      fromBlock: "latest",
+    })
+    .on("data", event => {
+      if(event.returnValues.player.toLowerCase() === globalAccount){
+        return;
+      }
+      console.log("Opponent has commited");
+    })
+    .on("changed", (changed) => console.log('changed', changed))
+    .on("error", (err) => console.log('err', err))
+    .on("connected", (str) => console.log('connected to Commited', str));
+  } 
+
+  //create StageChanged event listeners
+  const createStageChangedEventListener = (contract, listener, id) => {
+    //delete prev StageChanged event listener
+    if(listener) {
+      listener.removeAllListeners();
+    }
+    //create new StageChanged event listener
+    listener = contract.events.StageChanged({
+      filter: {roomId: id},
+      fromBlock: "latest",
+    })
+    .on("data", event => {
+      setRoom(prev => ({...prev, stage: event.returnValues.stage }))
+    })
+    .on("changed", (changed) => console.log('changed', changed))
+    .on("error", (err) => console.log('err', err))
+    .on("connected", (str) => console.log('connected to StageChanged', str));
+  } 
+
+    // console.log("emitterRevealed", emitterRevealed);
+    // if(emitterRevealed) {
+    //   emitterRevealed.removeAllListeners();
+    // }
+    // emitterRevealed = gameV2.events
+    // .Revealed({
+    //   filter: {
+    //     roomId: room.id,
+    //   },
+    //   fromBlock: "latest",
+    // })
+    // .on("data", (data) => console.log(data))
+    // .on("changed", (changed) => console.log('changed', changed))
+    // .on("error", (err) => console.log('err', err))
+    // .on("connected", (str) => console.log('connected to Revealed', str));
 
   const connectToRoom = async () => {
     const room = await gameV2.methods.getRoomById(roomId).call();
-    console.log(room.player0.playerAddress.toLowerCase())
-    console.log(room.player1.playerAddress.toLowerCase())
-    console.log(account)
     if(room.player0.playerAddress.toLowerCase() !== account && room.player1.playerAddress.toLowerCase() !== account){
       console.log("Invalid roomId");
       return;
     }
     room.player0 !== account ? setOpponent(room.player0.playerAddress.toLowerCase()) : setOpponent(room.player1.playerAddress.toLowerCase())
     setRoom(room);
+    createCommitedEventListener(gameV2, emitterCommited, roomId);
+    createStageChangedEventListener(gameV2, emitterStageChanged, roomId);
   };
 
   const createRoom = async () => {
@@ -183,11 +191,16 @@ function App() {
       .send({ from: account });
     const roomId = tx.events.RoomCreated.returnValues.roomId;
     setRoom(await gameV2.methods.getRoomById(roomId).call());
+    setRoomId(roomId);
+    // console.log(2)
+    // createCommitedEventListener(gameV2, emitterCommited, roomId);
+    // createStageChangedEventListener(gameV2, emitterStageChanged, roomId);
   };
 
   const commit = async () => {
     const salt = getSalt();
     setSalt(salt);
+    localStorage.setItem('salt' + room.id, salt);
     const encode = abiCoder.encode(
       ["address", "uint256", "bytes32"],
       [account, Rock, salt]
@@ -196,36 +209,24 @@ function App() {
     const tx = await gameV2.methods
       .commit(room.id, commintment)
       .send({ from: account });
-    setIsCommited(true);
+      
+    setRoom(await gameV2.methods.getRoomById(room.id).call());
+    // if(room.player0.playerAddress.toLowerCase() === account) {
+    //   console.log("1")
+    //   setRoom(prev => ({...prev, 'player0.commited': true }))
+    // } else {
+    //   console.log("2")
+    //   setRoom(prev => ({...prev, 'player1.commited': true }))
+    // }
   };
 
   const reveal = async () => {
-    const tx = await gameV2.methods.reveal(Rock, salt).send({ from: account });
-    console.log(reveal);
+    await gameV2.methods.reveal(room.id, Rock, localStorage.getItem('salt' + room.id)).send({ from: account });
   };
 
-  const handleRoomCreateEvent = async (event, account) => {
-    console.log('event.returnValues.player0.toLowerCase()', event.returnValues.player0.toLowerCase());
-    console.log('event.returnValues.player1.toLowerCase()', event.returnValues.player1.toLowerCase());
-    console.log('account', account);
-    if(event.returnValues.player0.toLowerCase() !== account && event.returnValues.player1.toLowerCase() !== account){
-      console.log("Room not for you");
-      return;
-    }
-    event.returnValues.player0.toLowerCase() !== account ? setOpponent(event.returnValues.player0.toLowerCase()) : setOpponent(event.returnValues.player1.toLowerCase())
-    setRoom(await gameV2.methods.getRoomById(event.returnValues.roomId).call());
-    console.log("Some one created room for you");
-  };
-
-  const handleCommitedEvent = (event) => {
-    console.log("TYT")
-    if(event.returnValues.player.toLowerCase() === account){
-      console.log("You commited");
-      return;
-    }
-    console.log("Opponent has commited");
-  };
-
+  const getPlayer = (room, account) => {
+    return room.player0.playerAddress.toLowerCase() === account ? room.player0 : room.player1;
+  }
 
   return (
     <div>
@@ -293,8 +294,9 @@ function App() {
                 </TableBody>
               </Table>
 
-              {!isCommited && 
+              {(!getPlayer(room, account).commited && room.stage == Commit) && 
                 <>
+                {console.log(room)}
                 <Button
                   onClick={commit}
                   variant="outlined"
@@ -306,7 +308,7 @@ function App() {
                 </>
               }
 
-              {isCommited && 
+              {(getPlayer(room, account).commited && !getPlayer(room, account).revealed && room.stage == Reveal) &&
                 <>
                   <Button
                     onClick={reveal}

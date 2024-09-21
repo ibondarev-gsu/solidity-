@@ -2,4 +2,4 @@ eth:
   host: http://127.0.0.1
   port: 8545
   botWalletPrivateKey: "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d"
-  contractAddress: "0x0165878A594ca255338adfa4d48449f69242Eb8F"
+  contractAddress: "0x851356ae760d987E095750cCeb3bC6014560891C"

@@ -26,16 +26,20 @@ async function main() {
     );
   }
 
-  const [owner, bot] = await ethers.getSigners();
+  const rops = await (await ethers.getContractFactory("Rops", owner)).deploy(Object.values(users).map(a => a.address));
+  await rops.deployed();
 
-  const gameV2 = await (await ethers.getContractFactory("GameV2", owner)).deploy(bot.address);
+  const [owner, bot] = await ethers.getSigners();
+  const gameV2 = await (await ethers.getContractFactory("GameV2", owner)).deploy(bot.address, rops.address);
   await gameV2.deployed();
 
   console.log("Owner address =", owner.address);
   console.log("Bot address =", bot.address);
   console.log("GameV2 address =", gameV2.address);
+  console.log("Rops address =", rops.address);
 
   saveFrontendFiles({GameV2: gameV2});
+  saveFrontendFiles({Rops: rops});
 }
 
 function saveFrontendFiles(contracts) {

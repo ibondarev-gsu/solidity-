@@ -16,7 +16,7 @@ public class Room {
     private final Player player1;
     private Stage stage;
 
-    private BigInteger gameCounter;
+    private BigInteger gameId;
 //    private final BigInteger timestamp;
 //    private final BigInteger blockNumber;
 
@@ -36,6 +36,7 @@ public class Room {
         this.player0 = new Player(firstPlayerAddress);
         this.player1 = new Player(secondPlayerAddress);
         this.stage = Stage.COMMIT;
+        this.gameId = BigInteger.ZERO;
 //        this.timestamp = timestamp;
 //        this.blockNumber = blockNumber;
     }
@@ -82,6 +83,11 @@ public class Room {
         } finally {
             writeLock.unlock();
         }
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public void incGameId() {
+        gameId.add(BigInteger.ONE);
     }
 
 

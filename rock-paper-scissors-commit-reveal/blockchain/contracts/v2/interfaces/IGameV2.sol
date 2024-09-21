@@ -29,7 +29,7 @@ interface IGameV2 {
         Player player0;
         Player player1;
         Stage stage;
-        uint256 gameCounter;
+        uint256 gameId;
     }
 
     error PlayerNotExist();
@@ -40,13 +40,16 @@ interface IGameV2 {
     error AlreadyRevealed();
     error InvalidHash();
 
-    event RoomCreated(address indexed player0, address indexed player1, uint256 roomId);
+    event RoomCreated(uint256 indexed roomId, address indexed player0, address indexed player1);
     event Commited(uint256 indexed roomId, address indexed player);
     event Revealed(uint256 indexed roomId, address indexed player, Choice choice);
     event Distributed(uint256 indexed roomId, Stage stage);
     event StageChanged(uint256 indexed roomId, Stage stage);
-    event GameResult(uint256 indexed roomId, address winner);
+    event GameResult(uint256 indexed roomId, address winner, uint256 gameId);
 
     function createRoom(address playerA, address playerB) external;
     function commit(uint256 roomId, bytes32 commitment) external;
+    function reveal(uint256 roomId, Choice choice, bytes32 key) external;
+    function distribute(uint256 roomId) external;
+    function nextStage(uint256 roomId, Stage stage) external;
 }
