@@ -54,11 +54,11 @@ public class RevealEventListener {
         if (room.getPlayer0().getAddress().equals(eventResponse.player)) {
             room.getPlayer0().setRevealed(true);
             room.getPlayer0().setChoice(Choice.values()[eventResponse.choice.intValue()]);
-            log.info("Set revealed={true} for player={}", room.getPlayer0().getAddress());
+            log.info("Set revealed={true} for player={} choice={}", room.getPlayer0().getAddress(), room.getPlayer1().getChoice());
         } else if (room.getPlayer1().getAddress().equals(eventResponse.player)) {
             room.getPlayer1().setRevealed(true);
             room.getPlayer1().setChoice(Choice.values()[eventResponse.choice.intValue()]);
-            log.info("Set revealed={true} for player={}", room.getPlayer1().getAddress());
+            log.info("Set revealed={true} for player={} choice={}", room.getPlayer1().getAddress(), room.getPlayer1().getChoice());
         } else {
             throw new IllegalArgumentException("Player with address={" + eventResponse.player + "} does not exist");
         }

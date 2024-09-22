@@ -13,8 +13,8 @@ contract GameV2 is IGameV2, AccessControl {
     mapping(uint256 => Room) public getRoomById;
     uint256 private roomCounter;
 
-    address immutable public distributor;  
-    Rops immutable public rops;  
+    address immutable public distributor;
+    Rops immutable public rops;
 
     constructor(address _distributor, Rops _rops) {
         _setRoleAdmin(OWNER_ROLE, OWNER_ROLE);
@@ -97,10 +97,12 @@ contract GameV2 is IGameV2, AccessControl {
             if(room.player1.choice == Choice.Paper) {
                 // Rock loses to paper
                 emit GameResult(roomId, room.player1.playerAddress, room.gameId);
+                rops.transferFrom(room.player0.playerAddress, room.player1.playerAddress, 1);
             }
             else if(room.player1.choice == Choice.Scissors) {
                 // Rock beats scissors
                 emit GameResult(roomId, room.player0.playerAddress, room.gameId);
+                rops.transferFrom(room.player1.playerAddress, room.player0.playerAddress, 1);
             }
         }
         else if(room.player0.choice == Choice.Scissors) {
@@ -108,10 +110,12 @@ contract GameV2 is IGameV2, AccessControl {
             if(room.player1.choice == Choice.Rock) {
                 // Scissors lose to rock
                 emit GameResult(roomId, room.player1.playerAddress, room.gameId);
+                rops.transferFrom(room.player0.playerAddress, room.player1.playerAddress, 1);
             }
             else if(room.player1.choice == Choice.Paper) {
                 // Scissors beats paper
                 emit GameResult(roomId, room.player0.playerAddress, room.gameId);
+                rops.transferFrom(room.player1.playerAddress, room.player0.playerAddress, 1);
             }
         }
         else if(room.player0.choice == Choice.Paper) {
@@ -119,15 +123,17 @@ contract GameV2 is IGameV2, AccessControl {
             if(room.player1.choice == Choice.Scissors) {
                 // Paper loses to scissors
                 emit GameResult(roomId, room.player1.playerAddress, room.gameId);
+                rops.transferFrom(room.player0.playerAddress, room.player1.playerAddress, 1);
             }
             else if(room.player1.choice == Choice.Rock) {
                 // Paper beats rock
                 emit GameResult(roomId, room.player0.playerAddress, room.gameId);
+                rops.transferFrom(room.player1.playerAddress, room.player0.playerAddress, 1);
             }
         } else revert("Choice inccorect!");
-        reset(room.player0);
-        reset(room.player1);
-        room.gameId++;
+        // reset(room.player0);
+        // reset(room.player1);
+        // room.gameId++;
     }
 
     function nextStage(uint256 roomId, Stage stage) external onlyRole(DISTRIBUTOR_ROLE) override {
@@ -154,6 +160,7 @@ contract GameV2 is IGameV2, AccessControl {
         if(keccak256(abi.encode(player.playerAddress, choice, key)) != player.commitment){
             revert InvalidHash();
         }
+         player.choice = choice;
         player.revealed = true;
     }
 
