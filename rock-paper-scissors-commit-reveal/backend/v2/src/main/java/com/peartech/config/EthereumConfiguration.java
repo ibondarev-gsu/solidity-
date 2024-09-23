@@ -32,7 +32,7 @@ public class EthereumConfiguration {
     }
 
     @Bean
-    public GameV2 rockPaperScissors() {
+    public GameV2 gameV2() {
         return GameV2.load(contractAddress, web3j(),
                 Credentials.create(botPrivateKey),
                 new DefaultGasProvider());

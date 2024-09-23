@@ -4,6 +4,8 @@ pragma solidity ^0.8.7;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./interfaces/IGameV2.sol";
 import "./Rops.sol";
+import "hardhat/console.sol";
+
 
 contract GameV2 is IGameV2, AccessControl {
     bytes32 public constant OWNER_ROLE = keccak256(abi.encodePacked("OWNER_ROLE"));
@@ -44,7 +46,6 @@ contract GameV2 is IGameV2, AccessControl {
     }
 
     function commit(uint256 roomId, bytes32 commitment) external override {
-        
         Room storage room = getRoomById[roomId];
         if(room.id == 0) {
             revert RoomNotExist();
@@ -160,7 +161,7 @@ contract GameV2 is IGameV2, AccessControl {
         if(keccak256(abi.encode(player.playerAddress, choice, key)) != player.commitment){
             revert InvalidHash();
         }
-         player.choice = choice;
+        player.choice = choice;
         player.revealed = true;
     }
 

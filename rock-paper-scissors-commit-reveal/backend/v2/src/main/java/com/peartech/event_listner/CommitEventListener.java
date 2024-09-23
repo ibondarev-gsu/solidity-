@@ -4,7 +4,7 @@ import com.peartech.contracts.GameV2;
 import com.peartech.dao.Dao;
 import com.peartech.entity.Room;
 import com.peartech.entity.enums.Stage;
-import com.peartech.service.GameV2ServiceImlp;
+import com.peartech.service.GameV2Service;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.validation.constraints.NotNull;
-
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
@@ -28,13 +27,13 @@ public class CommitEventListener {
     private final GameV2 gameV2;
     private final Scheduler scheduler;
 
-    private final GameV2ServiceImlp gameV2Service;
+    private final GameV2Service gameV2Service;
     private Disposable disposable;
 
     public CommitEventListener(@NotNull Dao dao,
                                @NotNull GameV2 gameV2,
                                @NotNull Scheduler scheduler,
-                               @NotNull GameV2ServiceImlp gameV2Service) {
+                               @NotNull GameV2Service gameV2Service) {
         this.dao = dao;
         this.gameV2 = gameV2;
         this.scheduler = scheduler;
