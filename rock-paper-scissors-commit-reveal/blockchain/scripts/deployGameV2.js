@@ -41,12 +41,14 @@ async function main() {
   console.log("GameV2 address =", gameV2.address);
   console.log("Rops address =", rops.address);
 
-  saveFrontendFiles({GameV2: gameV2});
-  saveFrontendFiles({Rops: rops});
+  saveFrontendFiles({GameV2: gameV2}, "frontend/v2/ethers/src/contracts");
+  saveFrontendFiles({GameV2: gameV2}, "frontend/v2/web3js/src/contracts");
+  saveFrontendFiles({Rops: rops}, "frontend/v2/ethers/src/contracts");
+  saveFrontendFiles({Rops: rops}, "frontend/v2/web3js/src/contracts");
 }
 
-function saveFrontendFiles(contracts) {
-  const contractsDir = path.join(__dirname, "../../", "frontend/v2/src/contracts");
+function saveFrontendFiles(contracts, projectPath) {
+  const contractsDir = path.join(__dirname, "../../", projectPath);
   if(!fs.existsSync(contractsDir)) {
     fs.mkdirSync(contractsDir);
   }

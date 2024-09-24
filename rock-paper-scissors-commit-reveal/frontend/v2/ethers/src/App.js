@@ -13,6 +13,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import { BigNumber} from "@ethersproject/bignumber";
 
 const GAME_V2_ABI = require("./contracts/GameV2.json").abi;
 const GAME_V2_ADDRESS = require("./contracts/GameV2-contract-address.json").GameV2;
@@ -50,20 +51,19 @@ let globalAccount;
 function App() {
   const [account, setAccount] = useState();
   const [player, setPlayer] = useState();
-  const [opponent, setOpponent] = useState();
+  const [opponent, setOpponent] = useState("");
   const [network, setNetwork] = useState({name:"none"});
   const [gameV2, setGameV2] = useState();
   const [rops, setRops] = useState();
-  const [ropsBalance, setRopsBalance] = useState();
-  const [ropsAllowance, setRopsAllowance] = useState();
+  const [ropsBalance, setRopsBalance] = useState({});
+  const [ropsAllowance, setRopsAllowance] = useState({});
 
   // const [player0, setPlayer0] = useState("");
   // const [player1, setPlayer1] = useState("");
   // const [stage, setStage] = useState();
   // const [gameCounter, setGameCounter] = useState(0);
 
-  const [roomId, setRoomId] = useState("");
-  const [room, setRoom] = useState(null);
+  const [room, setRoom] = useState({id: ""});
   const [salt, setSalt] = useState();
   const [isCommited, setIsCommited] = useState(false);
   const [stage, setStage] = useState(0);
@@ -77,13 +77,11 @@ function App() {
     setAccount(accounts[0].toLowerCase());
     globalAccount = accounts[0].toLowerCase();
     console.log('Одинаковый регистр', accounts[0].toLowerCase() === accounts[0]);
-    console.log(network);
     setNetwork(network);
-    const gameV2 = new ethers.Contract(GAME_V2_ADDRESS, GAME_V2_ABI, ether);
-    const rops =  new ethers.Contract(ROPS_ADDRESS, ROPS_ABI, ether);
-    // setGameV2(gameV2);
-    // setRops(rops);
-    console.log(await rops.balanceOf(accounts[0]));
+    const gameV2 = new ethers.Contract(GAME_V2_ADDRESS, GAME_V2_ABI, ether.getSigner());
+    const rops =  new ethers.Contract(ROPS_ADDRESS, ROPS_ABI, ether.getSigner());
+    setGameV2(gameV2);
+    setRops(rops);
     setRopsBalance(await rops.balanceOf(accounts[0]));
     setRopsAllowance(await rops.allowance(accounts[0], GAME_V2_ADDRESS));
   }, []);
@@ -103,66 +101,68 @@ function App() {
 
   //create RoomCreated event listener
   useEffect(() => {
-    if (gameV2) {
-      //delete prev RoomCreated event listener
-      console.log('gameV2.removeAllListeners("RoomCreated")', gameV2.removeAllListeners("RoomCreated"));
-      //create new Commited event listener
-      emitterRoomCreated = gameV2.events.RoomCreated({fromBlock: 'latest',})
-      .on("data", async (event) => {
-        if(event.returnValues.player0.toLowerCase() !== globalAccount && event.returnValues.player1.toLowerCase() !== globalAccount){
-          console.log("Room not for you");
-          return;
-        }
-        event.returnValues.player0.toLowerCase() !== globalAccount ? setOpponent(event.returnValues.player0.toLowerCase()) : setOpponent(event.returnValues.player1.toLowerCase())
-        setRoom(await gameV2.methods.getRoomById(event.returnValues.roomId).call());
-        createCommitedEventListener(gameV2, emitterCommited, event.returnValues.roomId);
-        createStageChangedEventListener(gameV2, emitterStageChanged, event.returnValues.roomId);
-      })
-      .on("changed", (changed) => console.log('changed', changed))
-      .on("error", (err) => console.log('err', err))
-      .on("connected", (str) => console.log('connected to RoomCreated', str));  
+    if (gameV2 && rops) {
+      createRoomCreatedEventListener(gameV2, globalAccount);
+      createApprovalEventListener(rops, globalAccount);
     }
-  }, [gameV2]);
+  }, [gameV2, rops]);
 
   //create Commited event listeners
-  const createCommitedEventListener = (contract, listener, id) => {
+  const createRoomCreatedEventListener = (contract, account) => {
+    //delete prev RoomCreated event listener
+    contract.removeAllListeners("RoomCreated");
+    //create new RoomCreated event listener
+    contract.on("RoomCreated", async (roomId, player0, player1, event) => {
+      if(player0.toLowerCase() !== account && player1.toLowerCase() !== account){
+        console.log("Room not for you");
+        return;
+      }
+      player0.toLowerCase() !== account ? setOpponent(player0.toLowerCase()) : setOpponent(player1.toLowerCase())
+      setRoom(await gameV2.getRoomById(roomId));
+      console.log("Room created", event);
+      createCommitedEventListener(gameV2, roomId, globalAccount);
+      createStageChangedEventListener(gameV2, roomId);
+    });
+  } 
+
+    //create Commited event listeners
+    const createApprovalEventListener = (contract, account) => {
+      //delete prev RoomCreated event listener
+      contract.removeAllListeners("Approval");
+      //create new RoomCreated event listener
+      contract.on("Approval", (owner, spender, value) => {
+        if(owner.toLowerCase() === account){
+          setRopsAllowance(value);
+        }
+      });
+    } 
+
+  //create Commited event listeners
+  const createCommitedEventListener = (contract, id, account) => {
     //delete prev Commited event listener
-    if(listener) {
-      listener.removeAllListeners();
-    }
+    contract.removeAllListeners("Commited");
     //create new Commited event listener
-    listener = contract.events.Commited({
-      filter: {roomId: id},
-      fromBlock: "latest",
-    })
-    .on("data", event => {
-      if(event.returnValues.player.toLowerCase() === globalAccount){
+    const filter = contract.filters.Commited(id, null);
+    contract.on(filter, (roomId, player) => {
+      console.log("Commited");
+      if(player.toLowerCase() === account){
         return;
       }
       console.log("Opponent has commited");
-    })
-    .on("changed", (changed) => console.log('changed', changed))
-    .on("error", (err) => console.log('err', err))
-    .on("connected", (str) => console.log('connected to Commited', str));
+    });
   } 
 
   //create StageChanged event listeners
-  const createStageChangedEventListener = (contract, listener, id) => {
+  const createStageChangedEventListener = (contract, id) => {
     //delete prev StageChanged event listener
-    if(listener) {
-      listener.removeAllListeners();
-    }
+    contract.removeAllListeners("StageChanged");
     //create new StageChanged event listener
-    listener = contract.events.StageChanged({
-      filter: {roomId: id},
-      fromBlock: "latest",
-    })
-    .on("data", event => {
-      setRoom(prev => ({...prev, stage: event.returnValues.stage }))
-    })
-    .on("changed", (changed) => console.log('changed', changed))
-    .on("error", (err) => console.log('err', err))
-    .on("connected", (str) => console.log('connected to StageChanged', str));
+    contract.events.StageChanged
+
+    listener = contract.on(contract.filters.StageChanged(id, null), (roomId, stage) => {
+      setRoom(prev => ({...prev, stage: stage }));
+      console.log("StageChanged");
+    });
   } 
 
     // console.log("emitterRevealed", emitterRevealed);
@@ -182,25 +182,26 @@ function App() {
     // .on("connected", (str) => console.log('connected to Revealed', str));
 
   const connectToRoom = async () => {
-    const room = await gameV2.methods.getRoomById(roomId).call();
-    if(room.player0.playerAddress.toLowerCase() !== account && room.player1.playerAddress.toLowerCase() !== account){
-      console.log("Invalid roomId");
-      return;
+    console.log(typeof parseInt(1) === 'number')
+    console.log(typeof parseInt("") === 'number')
+    console.log(parseInt("") !== NaN)
+    console.log(parseInt("asdasd"))
+    if(room.id !== "") {
+      const responce = await gameV2.getRoomById(room.id);
+      if(responce.player0.playerAddress.toLowerCase() !== account && responce.player1.playerAddress.toLowerCase() !== account){
+        console.log("Invalid roomId");
+        return;
+      }
+      responce.player0 !== account ? setOpponent(responce.player0.playerAddress.toLowerCase()) : setOpponent(responce.player1.playerAddress.toLowerCase())
+      setRoom(responce);
+      createCommitedEventListener(gameV2, room.id, globalAccount);
+      // createStageChangedEventListener(gameV2, room.id);
     }
-    room.player0 !== account ? setOpponent(room.player0.playerAddress.toLowerCase()) : setOpponent(room.player1.playerAddress.toLowerCase())
-    setRoom(room);
-    createCommitedEventListener(gameV2, emitterCommited, roomId);
-    createStageChangedEventListener(gameV2, emitterStageChanged, roomId);
   };
 
   const createRoom = async () => {
-    const tx = await gameV2.methods
-      .createRoom(account, opponent)
-      .send({ from: account });
-    const roomId = tx.events.RoomCreated.returnValues.roomId;
-    setRoom(await gameV2.methods.getRoomById(roomId).call());
-    setRoomId(roomId);
-    // console.log(2)
+    const tx = await gameV2.createRoom(account, opponent);
+    console.log(tx);
     // createCommitedEventListener(gameV2, emitterCommited, roomId);
     // createStageChangedEventListener(gameV2, emitterStageChanged, roomId);
   };
@@ -235,7 +236,7 @@ function App() {
   };
 
   const reveal = async () => {
-    await gameV2.methods.reveal(room.id, localStorage.getItem('choice' + room.id), localStorage.getItem('salt' + room.id)).send({ from: account });
+    await gameV2.reveal(room.id, localStorage.getItem('choice' + room.id), localStorage.getItem('salt' + room.id));
     console.log(localStorage.getItem('choice' + room.id));
     console.log(localStorage.getItem('salt' + room.id));
     // await gameV2.methods.reveal(room.id, localStorage.getItem('choice' + room.id), localStorage.getItem('salt' + room.id)).send({ from: account });
@@ -247,16 +248,16 @@ function App() {
   };
 
   const approve = async () => {
-    console.log(await rops.methods.approve(GAME_V2_ADDRESS, 10).send({ from: account }));
+    rops.approve(GAME_V2_ADDRESS, 10);
   };
 
   return (
     <div>
       {/* {account ? 
         <> */}
-          Account: {account}; Network: {network.name}; Balance: {ropsBalance}; Allowance: {ropsAllowance};
+          Account: {account}; Network: {network.name}; Balance: {ropsBalance.toString()}; Allowance: {ropsAllowance.toString()};
 
-          {/* {ropsAllowance &&             
+          {ropsAllowance &&             
             <Button
                 onClick={approve}
                 variant="outlined"
@@ -265,9 +266,9 @@ function App() {
               >
                 Add 10 Rops
             </Button>
-          } */}
+          }
 
-          {/* <Box>
+          <Box>
             Box for create Room
             <TextField
               onChange={(e) => setOpponent(e.target.value)}
@@ -286,14 +287,18 @@ function App() {
             >
               Create Room
             </Button>
-          </Box> */}
+          </Box>
 
-          {/* <Box>
+          <Box>
             Box for connect to room
             <TextField
-              onChange={(e) => setRoomId(e.target.value)}
+              onChange={(e) => {
+                setRoom({id: parseInt(e.target.value) !== NaN ? BigNumber.from(e.target.value) : ""});
+                // console.log(e.target.value);
+                // console.log(parseInt(e.target.value) !== NaN );
+              }}
               label="Room Id"
-              value={roomId}
+              value={room.id}
               variant="outlined"
               style={{ width: 420, marginRight: 10 }}
             />
@@ -305,7 +310,7 @@ function App() {
             >
               Connect To Room
             </Button>
-          </Box> */}
+          </Box>
 
 
           {/* {room && 
