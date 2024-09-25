@@ -132,9 +132,11 @@ contract GameV2 is IGameV2, AccessControl {
                 rops.transferFrom(room.player1.playerAddress, room.player0.playerAddress, 1);
             }
         } else revert("Choice inccorect!");
-        // reset(room.player0);
-        // reset(room.player1);
-        // room.gameId++;
+        reset(room.player0);
+        reset(room.player1);
+        room.gameId++;
+        room.stage = Stage.Commit;
+        emit StageChanged(roomId, Stage.Commit);
     }
 
     function nextStage(uint256 roomId, Stage stage) external onlyRole(DISTRIBUTOR_ROLE) override {
