@@ -12,8 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class Dao {
-    private Map<BigInteger, Room> rooms = new ConcurrentHashMap<>();
-    private Map<String, Player> players = new ConcurrentHashMap<>();
+    private final Map<BigInteger, Room> rooms = new ConcurrentHashMap<>();
+    private final Map<String, Player> players = new ConcurrentHashMap<>();
 
     public Optional<Room> getRoomById(@NotNull BigInteger roomId) {
         return Optional.ofNullable(rooms.get(roomId));

@@ -49,6 +49,12 @@ public class Player {
         this.choice = choice;
     }
 
+    public void reset() {
+        this.commited = false;
+        this.revealed = false;
+        this.choice = Choice.NONE;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", Player.class.getSimpleName() + "[", "]")
