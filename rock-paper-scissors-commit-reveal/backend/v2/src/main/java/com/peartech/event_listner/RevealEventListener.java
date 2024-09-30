@@ -5,6 +5,7 @@ import com.peartech.dao.Dao;
 import com.peartech.entity.Room;
 import com.peartech.entity.enums.Choice;
 import com.peartech.entity.enums.Stage;
+import com.peartech.event_listner.interfaces.EventListener;
 import com.peartech.service.GameV2Service;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
@@ -23,7 +24,7 @@ import static org.web3j.protocol.core.DefaultBlockParameterName.LATEST;
 
 @Slf4j
 @Component
-public class RevealEventListener {
+public class RevealEventListener implements EventListener<GameV2.RevealedEventResponse> {
     private final Dao dao;
     private final GameV2 gameV2;
     private final Scheduler scheduler;
@@ -44,7 +45,9 @@ public class RevealEventListener {
                 .subscribeOn(scheduler)
                 .subscribe(this::handle);
     }
-    private void handle(GameV2.RevealedEventResponse eventResponse) throws ExecutionException, InterruptedException {
+
+    @Override
+    public void handle(GameV2.RevealedEventResponse eventResponse) throws ExecutionException, InterruptedException {
         Optional<Room> roomOptional = dao.getRoomById(eventResponse.roomId);
         if (roomOptional.isEmpty()) {
             throw new IllegalArgumentException("Room with id={" + eventResponse.roomId + "} does not exist");

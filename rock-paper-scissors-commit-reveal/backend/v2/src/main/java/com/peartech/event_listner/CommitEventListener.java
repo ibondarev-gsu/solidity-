@@ -4,11 +4,13 @@ import com.peartech.contracts.GameV2;
 import com.peartech.dao.Dao;
 import com.peartech.entity.Room;
 import com.peartech.entity.enums.Stage;
+import com.peartech.event_listner.interfaces.EventListener;
 import com.peartech.service.GameV2Service;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.web3j.protocol.core.methods.response.BaseEventResponse;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -21,7 +23,7 @@ import static org.web3j.protocol.core.DefaultBlockParameterName.LATEST;
 
 @Slf4j
 @Component
-public class CommitEventListener {
+public class CommitEventListener implements EventListener<GameV2.CommitedEventResponse> {
 
     private final Dao dao;
     private final GameV2 gameV2;
@@ -47,7 +49,8 @@ public class CommitEventListener {
                 .subscribe(this::handle);
     }
 
-    private void handle(GameV2.CommitedEventResponse eventResponse) throws ExecutionException, InterruptedException {
+    @Override
+    public void handle(GameV2.CommitedEventResponse eventResponse) throws ExecutionException, InterruptedException {
         Optional<Room> roomOptional = dao.getRoomById(eventResponse.roomId);
         if (roomOptional.isEmpty()) {
             throw new IllegalArgumentException("Room with id={" + eventResponse.roomId + "} does not exist");

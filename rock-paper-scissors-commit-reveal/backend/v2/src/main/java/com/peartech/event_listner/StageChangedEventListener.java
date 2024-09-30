@@ -4,6 +4,7 @@ import com.peartech.contracts.GameV2;
 import com.peartech.dao.Dao;
 import com.peartech.entity.Room;
 import com.peartech.entity.enums.Stage;
+import com.peartech.event_listner.interfaces.EventListener;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ import static org.web3j.protocol.core.DefaultBlockParameterName.LATEST;
 
 @Slf4j
 @Component
-public class StageChangedEventListener {
+public class StageChangedEventListener implements EventListener<GameV2.StageChangedEventResponse> {
 
     private final Dao dao;
     private final GameV2 gameV2;
@@ -39,7 +40,9 @@ public class StageChangedEventListener {
                 .subscribeOn(scheduler)
                 .subscribe(this::handle);
     }
-    private void handle(GameV2.StageChangedEventResponse eventResponse) {
+
+    @Override
+    public void handle(GameV2.StageChangedEventResponse eventResponse) {
         Optional<Room> roomOptional = dao.getRoomById(eventResponse.roomId);
         if (roomOptional.isEmpty()) {
             throw new IllegalArgumentException("Room with id={" + eventResponse.roomId + "} does not exist");

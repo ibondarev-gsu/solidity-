@@ -3,6 +3,7 @@ package com.peartech.event_listner;
 import com.peartech.contracts.GameV2;
 import com.peartech.dao.Dao;
 import com.peartech.entity.Room;
+import com.peartech.event_listner.interfaces.EventListener;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ import static org.web3j.protocol.core.DefaultBlockParameterName.LATEST;
 
 @Slf4j
 @Component
-public class RoomCreatedEventListener {
+public class RoomCreatedEventListener implements EventListener<GameV2.RoomCreatedEventResponse> {
 
     private final Dao dao;
     private final GameV2 gameV2;
@@ -39,7 +40,8 @@ public class RoomCreatedEventListener {
                 .subscribe(this::handle);
     }
 
-    private void handle(GameV2.RoomCreatedEventResponse eventResponse) {
+    @Override
+    public void handle(GameV2.RoomCreatedEventResponse eventResponse) {
         if (dao.getRoomById(eventResponse.roomId).isPresent()) {
             throw new IllegalArgumentException("Room with id={" + eventResponse.roomId + "} already exist");
         }
