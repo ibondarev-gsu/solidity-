@@ -8,15 +8,13 @@ import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.web3j.protocol.core.DefaultBlockParameterNumber;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.validation.constraints.NotNull;
-
 import java.util.Optional;
 
-import static org.web3j.protocol.core.DefaultBlockParameterName.EARLIEST;
-import static org.web3j.protocol.core.DefaultBlockParameterName.LATEST;
+import static org.web3j.protocol.core.DefaultBlockParameterName.PENDING;
 
 @Slf4j
 @Component
@@ -26,6 +24,7 @@ public class GameResultEventListener implements EventListener<GameV2.GameResultE
     private final GameV2 gameV2;
     private final Scheduler scheduler;
     private Disposable disposable;
+    private boolean isStarted;
 
     public GameResultEventListener(@NotNull Dao dao,
                                    @NotNull GameV2 gameV2,
@@ -34,11 +33,14 @@ public class GameResultEventListener implements EventListener<GameV2.GameResultE
         this.gameV2 = gameV2;
         this.scheduler = scheduler;
     }
-    @PostConstruct
-    private void postConstruct() {
-        disposable = gameV2.gameResultEventFlowable(EARLIEST, LATEST)// Тут нужно будет с бд брать последний обработанный EARLIEST
-                .subscribeOn(scheduler)
-                .subscribe(this::handle);
+
+    public void start(long blockNumber) {
+        if (!isStarted) {
+            disposable = gameV2.gameResultEventFlowable(new DefaultBlockParameterNumber(blockNumber), PENDING)// Тут нужно будет с бд брать последний обработанный EARLIEST
+                    .subscribeOn(scheduler)
+                    .subscribe(this::handle);
+            isStarted = true;
+        }
     }
 
     @Override

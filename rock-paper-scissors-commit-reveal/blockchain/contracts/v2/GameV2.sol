@@ -4,8 +4,6 @@ pragma solidity ^0.8.7;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./interfaces/IGameV2.sol";
 import "./Rops.sol";
-import "hardhat/console.sol";
-
 
 contract GameV2 is IGameV2, AccessControl {
     bytes32 public constant OWNER_ROLE = keccak256(abi.encodePacked("OWNER_ROLE"));
@@ -13,7 +11,7 @@ contract GameV2 is IGameV2, AccessControl {
 
     mapping(address => mapping(address => uint256)) public getRoomByPlayerAddresses;
     mapping(uint256 => Room) public getRoomById;
-    uint256 private roomCounter;
+    uint256 public roomCounter;
 
     address immutable public distributor;
     Rops immutable public rops;

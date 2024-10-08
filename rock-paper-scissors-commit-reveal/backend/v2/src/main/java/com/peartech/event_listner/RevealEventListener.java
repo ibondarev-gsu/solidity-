@@ -9,8 +9,10 @@ import com.peartech.event_listner.interfaces.EventListener;
 import com.peartech.service.GameV2Service;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.web3j.protocol.core.DefaultBlockParameterNumber;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -19,8 +21,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-import static org.web3j.protocol.core.DefaultBlockParameterName.EARLIEST;
-import static org.web3j.protocol.core.DefaultBlockParameterName.LATEST;
+import static org.web3j.protocol.core.DefaultBlockParameterName.*;
 
 @Slf4j
 @Component
@@ -30,6 +31,7 @@ public class RevealEventListener implements EventListener<GameV2.RevealedEventRe
     private final Scheduler scheduler;
     private GameV2Service gameV2Service;
     private Disposable disposable;
+    private boolean isStarted;
     public RevealEventListener(@NotNull Dao dao,
                                @NotNull GameV2 gameV2,
                                @NotNull Scheduler scheduler,
@@ -39,11 +41,14 @@ public class RevealEventListener implements EventListener<GameV2.RevealedEventRe
         this.scheduler = scheduler;
         this.gameV2Service = gameV2Service;
     }
-    @PostConstruct
-    private void postConstruct() {
-            disposable = gameV2.revealedEventFlowable(EARLIEST, LATEST)// Тут нужно будет с бд брать последний обработанный EARLIEST
-                .subscribeOn(scheduler)
-                .subscribe(this::handle);
+
+    public void start(long blockNumber) {
+        if (!isStarted) {
+            disposable = gameV2.revealedEventFlowable(new DefaultBlockParameterNumber(blockNumber), PENDING)// Тут нужно будет с бд брать последний обработанный EARLIEST
+                    .subscribeOn(scheduler)
+                    .subscribe(this::handle);
+            isStarted = true;
+        }
     }
 
     @Override
@@ -66,6 +71,13 @@ public class RevealEventListener implements EventListener<GameV2.RevealedEventRe
             throw new IllegalArgumentException("Player with address={" + eventResponse.player + "} does not exist");
         }
         //think about DISTRIBUTE stage
+        if (room.getPlayer0().isRevealed() && room.getPlayer1().isRevealed()) {
+            log.info("distribute {}", gameV2Service.distribute(room.getId()).get());
+        }
+    }
+
+    @SneakyThrows
+    public void handle(Room room) {
         if (room.getPlayer0().isRevealed() && room.getPlayer1().isRevealed()) {
             log.info("distribute {}", gameV2Service.distribute(room.getId()).get());
         }

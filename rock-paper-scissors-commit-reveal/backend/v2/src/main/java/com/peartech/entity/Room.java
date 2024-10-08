@@ -1,6 +1,8 @@
 package com.peartech.entity;
 
+import com.peartech.contracts.GameV2;
 import com.peartech.entity.enums.Stage;
+import org.web3j.tuples.generated.Tuple5;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigInteger;
@@ -15,7 +17,6 @@ public class Room {
     private final Player player0;
     private final Player player1;
     private Stage stage;
-
     private BigInteger gameId;
 //    private final BigInteger timestamp;
 //    private final BigInteger blockNumber;
@@ -29,8 +30,6 @@ public class Room {
     public Room(@NotNull BigInteger roomId,
                 @NotNull String firstPlayerAddress,
                 @NotNull String secondPlayerAddress
-//                @NotNull BigInteger timestamp,
-//                @NotNull BigInteger blockNumber
     ) {
         this.id = roomId;
         this.player0 = new Player(firstPlayerAddress);
@@ -40,6 +39,28 @@ public class Room {
 //        this.timestamp = timestamp;
 //        this.blockNumber = blockNumber;
     }
+
+    public Room(@NotNull BigInteger roomId,
+                @NotNull String firstPlayerAddress,
+                @NotNull String secondPlayerAddress,
+                @NotNull Stage stage,
+                @NotNull BigInteger gameId
+    ) {
+        this.id = roomId;
+        this.player0 = new Player(firstPlayerAddress);
+        this.player1 = new Player(secondPlayerAddress);
+        this.stage = stage;
+        this.gameId = gameId;
+    }
+
+    public Room(@NotNull Tuple5<BigInteger, GameV2.Player, GameV2.Player, BigInteger, BigInteger> room){
+        this.id = room.component1();
+        this.player0 = new Player(room.component2());
+        this.player1 = new Player(room.component3());
+        this.stage = Stage.values()[room.component4().intValue()];
+        this.gameId = room.component5();
+    }
+
 
     public BigInteger getId() {
         return id;

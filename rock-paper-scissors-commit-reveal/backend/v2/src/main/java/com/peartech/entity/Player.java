@@ -1,5 +1,6 @@
 package com.peartech.entity;
 
+import com.peartech.contracts.GameV2;
 import com.peartech.entity.enums.Choice;
 
 import javax.validation.constraints.NotNull;
@@ -20,6 +21,15 @@ public class Player {
         this.revealed = false;
         this.choice = Choice.NONE;
     }
+
+    public Player(@NotNull GameV2.Player player) {
+        this.address = player.playerAddress;
+        this.commited = player.commited;
+        this.revealed = player.revealed;
+        this.choice = Choice.values()[player.choice.intValue()];
+    }
+
+
 
     public String getAddress() {
         return address;

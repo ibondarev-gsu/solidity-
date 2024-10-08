@@ -215,7 +215,7 @@ export default function MultiMod() {
       setRoom(responce);
       createCommitedEventListener(gameV2, room.id, globalAccount);
       createStageChangedEventListener(gameV2, room.id);
-      createGameResultEventListener(gameV2, roomId, globalAccount);
+      createGameResultEventListener(gameV2, room.id, globalAccount);
     }
   };
 

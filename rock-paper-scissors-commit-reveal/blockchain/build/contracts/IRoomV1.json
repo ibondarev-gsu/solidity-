@@ -185,15 +185,15 @@
     "absolutePath": "project:/contracts/v1/interfaces/IRoomV1.sol",
     "exportedSymbols": {
       "IRoomV1": [
-        23619
+        15555
       ]
     },
-    "id": 23620,
+    "id": 15556,
     "license": "Unlicense",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 23534,
+        "id": 15470,
         "literals": [
           "solidity",
           "^",
@@ -201,7 +201,7 @@
           ".7"
         ],
         "nodeType": "PragmaDirective",
-        "src": "38:23:62"
+        "src": "38:23:61"
       },
       {
         "abstract": false,
@@ -210,96 +210,96 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 23619,
+        "id": 15555,
         "linearizedBaseContracts": [
-          23619
+          15555
         ],
         "name": "IRoomV1",
-        "nameLocation": "75:7:62",
+        "nameLocation": "75:7:61",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "IRoomV1.Stage",
-            "id": 23538,
+            "id": 15474,
             "members": [
               {
-                "id": 23535,
+                "id": 15471,
                 "name": "Commit",
-                "nameLocation": "114:6:62",
+                "nameLocation": "114:6:61",
                 "nodeType": "EnumValue",
-                "src": "114:6:62"
+                "src": "114:6:61"
               },
               {
-                "id": 23536,
+                "id": 15472,
                 "name": "Reveal",
-                "nameLocation": "131:6:62",
+                "nameLocation": "131:6:61",
                 "nodeType": "EnumValue",
-                "src": "131:6:62"
+                "src": "131:6:61"
               },
               {
-                "id": 23537,
+                "id": 15473,
                 "name": "Distribute",
-                "nameLocation": "148:10:62",
+                "nameLocation": "148:10:61",
                 "nodeType": "EnumValue",
-                "src": "148:10:62"
+                "src": "148:10:61"
               }
             ],
             "name": "Stage",
-            "nameLocation": "97:5:62",
+            "nameLocation": "97:5:61",
             "nodeType": "EnumDefinition",
-            "src": "92:73:62"
+            "src": "92:73:61"
           },
           {
             "canonicalName": "IRoomV1.Choice",
-            "id": 23543,
+            "id": 15479,
             "members": [
               {
-                "id": 23539,
+                "id": 15475,
                 "name": "None",
-                "nameLocation": "196:4:62",
+                "nameLocation": "196:4:61",
                 "nodeType": "EnumValue",
-                "src": "196:4:62"
+                "src": "196:4:61"
               },
               {
-                "id": 23540,
+                "id": 15476,
                 "name": "Rock",
-                "nameLocation": "211:4:62",
+                "nameLocation": "211:4:61",
                 "nodeType": "EnumValue",
-                "src": "211:4:62"
+                "src": "211:4:61"
               },
               {
-                "id": 23541,
+                "id": 15477,
                 "name": "Paper",
-                "nameLocation": "226:5:62",
+                "nameLocation": "226:5:61",
                 "nodeType": "EnumValue",
-                "src": "226:5:62"
+                "src": "226:5:61"
               },
               {
-                "id": 23542,
+                "id": 15478,
                 "name": "Scissors",
-                "nameLocation": "242:8:62",
+                "nameLocation": "242:8:61",
                 "nodeType": "EnumValue",
-                "src": "242:8:62"
+                "src": "242:8:61"
               }
             ],
             "name": "Choice",
-            "nameLocation": "178:6:62",
+            "nameLocation": "178:6:61",
             "nodeType": "EnumDefinition",
-            "src": "173:84:62"
+            "src": "173:84:61"
           },
           {
             "canonicalName": "IRoomV1.Player",
-            "id": 23555,
+            "id": 15491,
             "members": [
               {
                 "constant": false,
-                "id": 23545,
+                "id": 15481,
                 "mutability": "mutable",
                 "name": "playerAddress",
-                "nameLocation": "298:13:62",
+                "nameLocation": "298:13:61",
                 "nodeType": "VariableDeclaration",
-                "scope": 23555,
-                "src": "290:21:62",
+                "scope": 15491,
+                "src": "290:21:61",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -307,10 +307,10 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 23544,
+                  "id": 15480,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "290:7:62",
+                  "src": "290:7:61",
                   "stateMutability": "nonpayable",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
@@ -321,13 +321,13 @@
               },
               {
                 "constant": false,
-                "id": 23547,
+                "id": 15483,
                 "mutability": "mutable",
                 "name": "commited",
-                "nameLocation": "327:8:62",
+                "nameLocation": "327:8:61",
                 "nodeType": "VariableDeclaration",
-                "scope": 23555,
-                "src": "322:13:62",
+                "scope": 15491,
+                "src": "322:13:61",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -335,10 +335,10 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 23546,
+                  "id": 15482,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
-                  "src": "322:4:62",
+                  "src": "322:4:61",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bool",
                     "typeString": "bool"
@@ -348,13 +348,13 @@
               },
               {
                 "constant": false,
-                "id": 23549,
+                "id": 15485,
                 "mutability": "mutable",
                 "name": "revealed",
-                "nameLocation": "351:8:62",
+                "nameLocation": "351:8:61",
                 "nodeType": "VariableDeclaration",
-                "scope": 23555,
-                "src": "346:13:62",
+                "scope": 15491,
+                "src": "346:13:61",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -362,10 +362,10 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 23548,
+                  "id": 15484,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
-                  "src": "346:4:62",
+                  "src": "346:4:61",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bool",
                     "typeString": "bool"
@@ -375,33 +375,33 @@
               },
               {
                 "constant": false,
-                "id": 23552,
+                "id": 15488,
                 "mutability": "mutable",
                 "name": "choice",
-                "nameLocation": "377:6:62",
+                "nameLocation": "377:6:61",
                 "nodeType": "VariableDeclaration",
-                "scope": 23555,
-                "src": "370:13:62",
+                "scope": 15491,
+                "src": "370:13:61",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_enum$_Choice_$23543",
+                  "typeIdentifier": "t_enum$_Choice_$15479",
                   "typeString": "enum IRoomV1.Choice"
                 },
                 "typeName": {
-                  "id": 23551,
+                  "id": 15487,
                   "nodeType": "UserDefinedTypeName",
                   "pathNode": {
-                    "id": 23550,
+                    "id": 15486,
                     "name": "Choice",
                     "nodeType": "IdentifierPath",
-                    "referencedDeclaration": 23543,
-                    "src": "370:6:62"
+                    "referencedDeclaration": 15479,
+                    "src": "370:6:61"
                   },
-                  "referencedDeclaration": 23543,
-                  "src": "370:6:62",
+                  "referencedDeclaration": 15479,
+                  "src": "370:6:61",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_Choice_$23543",
+                    "typeIdentifier": "t_enum$_Choice_$15479",
                     "typeString": "enum IRoomV1.Choice"
                   }
                 },
@@ -409,13 +409,13 @@
               },
               {
                 "constant": false,
-                "id": 23554,
+                "id": 15490,
                 "mutability": "mutable",
                 "name": "commitment",
-                "nameLocation": "402:10:62",
+                "nameLocation": "402:10:61",
                 "nodeType": "VariableDeclaration",
-                "scope": 23555,
-                "src": "394:18:62",
+                "scope": 15491,
+                "src": "394:18:61",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -423,10 +423,10 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 23553,
+                  "id": 15489,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
-                  "src": "394:7:62",
+                  "src": "394:7:61",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bytes32",
                     "typeString": "bytes32"
@@ -436,33 +436,33 @@
               }
             ],
             "name": "Player",
-            "nameLocation": "272:6:62",
+            "nameLocation": "272:6:61",
             "nodeType": "StructDefinition",
-            "scope": 23619,
-            "src": "265:155:62",
+            "scope": 15555,
+            "src": "265:155:61",
             "visibility": "public"
           },
           {
             "anonymous": false,
             "eventSelector": "815ca4497ab9fc80c76f210e6e842a5e198e195aa136034557eee144f790e7bb",
-            "id": 23561,
+            "id": 15497,
             "name": "Commit",
-            "nameLocation": "434:6:62",
+            "nameLocation": "434:6:61",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 23560,
+              "id": 15496,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 23557,
+                  "id": 15493,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "room",
-                  "nameLocation": "457:4:62",
+                  "nameLocation": "457:4:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23561,
-                  "src": "441:20:62",
+                  "scope": 15497,
+                  "src": "441:20:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -470,10 +470,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 23556,
+                    "id": 15492,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "441:7:62",
+                    "src": "441:7:61",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -484,14 +484,14 @@
                 },
                 {
                   "constant": false,
-                  "id": 23559,
+                  "id": 15495,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "player",
-                  "nameLocation": "479:6:62",
+                  "nameLocation": "479:6:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23561,
-                  "src": "463:22:62",
+                  "scope": 15497,
+                  "src": "463:22:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -499,10 +499,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 23558,
+                    "id": 15494,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "463:7:62",
+                    "src": "463:7:61",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -512,31 +512,31 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "440:46:62"
+              "src": "440:46:61"
             },
-            "src": "428:59:62"
+            "src": "428:59:61"
           },
           {
             "anonymous": false,
             "eventSelector": "b7b340131dd0b9272bb5e6175b8e9aa734a869625182548092b50ba1c1b18fde",
-            "id": 23570,
+            "id": 15506,
             "name": "Reveal",
-            "nameLocation": "499:6:62",
+            "nameLocation": "499:6:61",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 23569,
+              "id": 15505,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 23563,
+                  "id": 15499,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "room",
-                  "nameLocation": "522:4:62",
+                  "nameLocation": "522:4:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23570,
-                  "src": "506:20:62",
+                  "scope": 15506,
+                  "src": "506:20:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -544,10 +544,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 23562,
+                    "id": 15498,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "506:7:62",
+                    "src": "506:7:61",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -558,14 +558,14 @@
                 },
                 {
                   "constant": false,
-                  "id": 23565,
+                  "id": 15501,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "player",
-                  "nameLocation": "544:6:62",
+                  "nameLocation": "544:6:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23570,
-                  "src": "528:22:62",
+                  "scope": 15506,
+                  "src": "528:22:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -573,10 +573,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 23564,
+                    "id": 15500,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "528:7:62",
+                    "src": "528:7:61",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -587,65 +587,65 @@
                 },
                 {
                   "constant": false,
-                  "id": 23568,
+                  "id": 15504,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "choice",
-                  "nameLocation": "559:6:62",
+                  "nameLocation": "559:6:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23570,
-                  "src": "552:13:62",
+                  "scope": 15506,
+                  "src": "552:13:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_Choice_$23543",
+                    "typeIdentifier": "t_enum$_Choice_$15479",
                     "typeString": "enum IRoomV1.Choice"
                   },
                   "typeName": {
-                    "id": 23567,
+                    "id": 15503,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 23566,
+                      "id": 15502,
                       "name": "Choice",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 23543,
-                      "src": "552:6:62"
+                      "referencedDeclaration": 15479,
+                      "src": "552:6:61"
                     },
-                    "referencedDeclaration": 23543,
-                    "src": "552:6:62",
+                    "referencedDeclaration": 15479,
+                    "src": "552:6:61",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_Choice_$23543",
+                      "typeIdentifier": "t_enum$_Choice_$15479",
                       "typeString": "enum IRoomV1.Choice"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "505:61:62"
+              "src": "505:61:61"
             },
-            "src": "493:74:62"
+            "src": "493:74:61"
           },
           {
             "anonymous": false,
             "eventSelector": "086ca77780f625b30be699f65393fdd3a20fb84998ad766433671f13724846d3",
-            "id": 23577,
+            "id": 15513,
             "name": "Distributed",
-            "nameLocation": "579:11:62",
+            "nameLocation": "579:11:61",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 23576,
+              "id": 15512,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 23572,
+                  "id": 15508,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "id",
-                  "nameLocation": "604:2:62",
+                  "nameLocation": "604:2:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23577,
-                  "src": "591:15:62",
+                  "scope": 15513,
+                  "src": "591:15:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -653,10 +653,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 23571,
+                    "id": 15507,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "591:4:62",
+                    "src": "591:4:61",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -666,65 +666,65 @@
                 },
                 {
                   "constant": false,
-                  "id": 23575,
+                  "id": 15511,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "stage",
-                  "nameLocation": "614:5:62",
+                  "nameLocation": "614:5:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23577,
-                  "src": "608:11:62",
+                  "scope": 15513,
+                  "src": "608:11:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_Stage_$23538",
+                    "typeIdentifier": "t_enum$_Stage_$15474",
                     "typeString": "enum IRoomV1.Stage"
                   },
                   "typeName": {
-                    "id": 23574,
+                    "id": 15510,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 23573,
+                      "id": 15509,
                       "name": "Stage",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 23538,
-                      "src": "608:5:62"
+                      "referencedDeclaration": 15474,
+                      "src": "608:5:61"
                     },
-                    "referencedDeclaration": 23538,
-                    "src": "608:5:62",
+                    "referencedDeclaration": 15474,
+                    "src": "608:5:61",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_Stage_$23538",
+                      "typeIdentifier": "t_enum$_Stage_$15474",
                       "typeString": "enum IRoomV1.Stage"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "590:30:62"
+              "src": "590:30:61"
             },
-            "src": "573:48:62"
+            "src": "573:48:61"
           },
           {
             "anonymous": false,
             "eventSelector": "2ac10ce19c110986e7824de50d9855079ddcc0ceaae6c51f182e458cf81319ca",
-            "id": 23584,
+            "id": 15520,
             "name": "StageChanged",
-            "nameLocation": "633:12:62",
+            "nameLocation": "633:12:61",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 23583,
+              "id": 15519,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 23579,
+                  "id": 15515,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "room",
-                  "nameLocation": "662:4:62",
+                  "nameLocation": "662:4:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23584,
-                  "src": "646:20:62",
+                  "scope": 15520,
+                  "src": "646:20:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -732,10 +732,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 23578,
+                    "id": 15514,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "646:7:62",
+                    "src": "646:7:61",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -746,65 +746,65 @@
                 },
                 {
                   "constant": false,
-                  "id": 23582,
+                  "id": 15518,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "stage",
-                  "nameLocation": "674:5:62",
+                  "nameLocation": "674:5:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23584,
-                  "src": "668:11:62",
+                  "scope": 15520,
+                  "src": "668:11:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_Stage_$23538",
+                    "typeIdentifier": "t_enum$_Stage_$15474",
                     "typeString": "enum IRoomV1.Stage"
                   },
                   "typeName": {
-                    "id": 23581,
+                    "id": 15517,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 23580,
+                      "id": 15516,
                       "name": "Stage",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 23538,
-                      "src": "668:5:62"
+                      "referencedDeclaration": 15474,
+                      "src": "668:5:61"
                     },
-                    "referencedDeclaration": 23538,
-                    "src": "668:5:62",
+                    "referencedDeclaration": 15474,
+                    "src": "668:5:61",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_Stage_$23538",
+                      "typeIdentifier": "t_enum$_Stage_$15474",
                       "typeString": "enum IRoomV1.Stage"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "645:35:62"
+              "src": "645:35:61"
             },
-            "src": "627:54:62"
+            "src": "627:54:61"
           },
           {
             "anonymous": false,
             "eventSelector": "5698514ff818a4b8d88693fc8cf850843c95e394c707d7e4675d3f8af9bda3ee",
-            "id": 23590,
+            "id": 15526,
             "name": "GameResult",
-            "nameLocation": "693:10:62",
+            "nameLocation": "693:10:61",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 23589,
+              "id": 15525,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 23586,
+                  "id": 15522,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "room",
-                  "nameLocation": "720:4:62",
+                  "nameLocation": "720:4:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23590,
-                  "src": "704:20:62",
+                  "scope": 15526,
+                  "src": "704:20:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -812,10 +812,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 23585,
+                    "id": 15521,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "704:7:62",
+                    "src": "704:7:61",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -826,14 +826,14 @@
                 },
                 {
                   "constant": false,
-                  "id": 23588,
+                  "id": 15524,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "winner",
-                  "nameLocation": "734:6:62",
+                  "nameLocation": "734:6:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23590,
-                  "src": "726:14:62",
+                  "scope": 15526,
+                  "src": "726:14:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -841,10 +841,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 23587,
+                    "id": 15523,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "726:7:62",
+                    "src": "726:7:61",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -854,116 +854,116 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "703:38:62"
+              "src": "703:38:61"
             },
-            "src": "687:55:62"
+            "src": "687:55:61"
           },
           {
             "errorSelector": "1f427354",
-            "id": 23592,
+            "id": 15528,
             "name": "PlayerNotExist",
-            "nameLocation": "756:14:62",
+            "nameLocation": "756:14:61",
             "nodeType": "ErrorDefinition",
             "parameters": {
-              "id": 23591,
+              "id": 15527,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "770:2:62"
+              "src": "770:2:61"
             },
-            "src": "750:23:62"
+            "src": "750:23:61"
           },
           {
             "errorSelector": "a05e34ba",
-            "id": 23594,
+            "id": 15530,
             "name": "WrongStage",
-            "nameLocation": "785:10:62",
+            "nameLocation": "785:10:61",
             "nodeType": "ErrorDefinition",
             "parameters": {
-              "id": 23593,
+              "id": 15529,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "795:2:62"
+              "src": "795:2:61"
             },
-            "src": "779:19:62"
+            "src": "779:19:61"
           },
           {
             "errorSelector": "20edc185",
-            "id": 23596,
+            "id": 15532,
             "name": "WrongChoice",
-            "nameLocation": "810:11:62",
+            "nameLocation": "810:11:61",
             "nodeType": "ErrorDefinition",
             "parameters": {
-              "id": 23595,
+              "id": 15531,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "821:2:62"
+              "src": "821:2:61"
             },
-            "src": "804:20:62"
+            "src": "804:20:61"
           },
           {
             "errorSelector": "fc507a31",
-            "id": 23598,
+            "id": 15534,
             "name": "AlreadyCommited",
-            "nameLocation": "836:15:62",
+            "nameLocation": "836:15:61",
             "nodeType": "ErrorDefinition",
             "parameters": {
-              "id": 23597,
+              "id": 15533,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "851:2:62"
+              "src": "851:2:61"
             },
-            "src": "830:24:62"
+            "src": "830:24:61"
           },
           {
             "errorSelector": "a89ac151",
-            "id": 23600,
+            "id": 15536,
             "name": "AlreadyRevealed",
-            "nameLocation": "866:15:62",
+            "nameLocation": "866:15:61",
             "nodeType": "ErrorDefinition",
             "parameters": {
-              "id": 23599,
+              "id": 15535,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "881:2:62"
+              "src": "881:2:61"
             },
-            "src": "860:24:62"
+            "src": "860:24:61"
           },
           {
             "errorSelector": "0af806e0",
-            "id": 23602,
+            "id": 15538,
             "name": "InvalidHash",
-            "nameLocation": "896:11:62",
+            "nameLocation": "896:11:61",
             "nodeType": "ErrorDefinition",
             "parameters": {
-              "id": 23601,
+              "id": 15537,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "907:2:62"
+              "src": "907:2:61"
             },
-            "src": "890:20:62"
+            "src": "890:20:61"
           },
           {
             "functionSelector": "f14fcbc8",
-            "id": 23607,
+            "id": 15543,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "commit",
-            "nameLocation": "927:6:62",
+            "nameLocation": "927:6:61",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 23605,
+              "id": 15541,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 23604,
+                  "id": 15540,
                   "mutability": "mutable",
                   "name": "commitment",
-                  "nameLocation": "942:10:62",
+                  "nameLocation": "942:10:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23607,
-                  "src": "934:18:62",
+                  "scope": 15543,
+                  "src": "934:18:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -971,10 +971,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 23603,
+                    "id": 15539,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "934:7:62",
+                    "src": "934:7:61",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -983,62 +983,62 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "933:20:62"
+              "src": "933:20:61"
             },
             "returnParameters": {
-              "id": 23606,
+              "id": 15542,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "962:0:62"
+              "src": "962:0:61"
             },
-            "scope": 23619,
-            "src": "918:45:62",
+            "scope": 15555,
+            "src": "918:45:61",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "functionSelector": "3fc8ae06",
-            "id": 23615,
+            "id": 15551,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "reveal",
-            "nameLocation": "978:6:62",
+            "nameLocation": "978:6:61",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 23613,
+              "id": 15549,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 23610,
+                  "id": 15546,
                   "mutability": "mutable",
                   "name": "choice",
-                  "nameLocation": "992:6:62",
+                  "nameLocation": "992:6:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23615,
-                  "src": "985:13:62",
+                  "scope": 15551,
+                  "src": "985:13:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_Choice_$23543",
+                    "typeIdentifier": "t_enum$_Choice_$15479",
                     "typeString": "enum IRoomV1.Choice"
                   },
                   "typeName": {
-                    "id": 23609,
+                    "id": 15545,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 23608,
+                      "id": 15544,
                       "name": "Choice",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 23543,
-                      "src": "985:6:62"
+                      "referencedDeclaration": 15479,
+                      "src": "985:6:61"
                     },
-                    "referencedDeclaration": 23543,
-                    "src": "985:6:62",
+                    "referencedDeclaration": 15479,
+                    "src": "985:6:61",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_Choice_$23543",
+                      "typeIdentifier": "t_enum$_Choice_$15479",
                       "typeString": "enum IRoomV1.Choice"
                     }
                   },
@@ -1046,13 +1046,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 23612,
+                  "id": 15548,
                   "mutability": "mutable",
                   "name": "key",
-                  "nameLocation": "1008:3:62",
+                  "nameLocation": "1008:3:61",
                   "nodeType": "VariableDeclaration",
-                  "scope": 23615,
-                  "src": "1000:11:62",
+                  "scope": 15551,
+                  "src": "1000:11:61",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1060,10 +1060,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 23611,
+                    "id": 15547,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1000:7:62",
+                    "src": "1000:7:61",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1072,61 +1072,61 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "984:28:62"
+              "src": "984:28:61"
             },
             "returnParameters": {
-              "id": 23614,
+              "id": 15550,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1021:0:62"
+              "src": "1021:0:61"
             },
-            "scope": 23619,
-            "src": "969:53:62",
+            "scope": 15555,
+            "src": "969:53:61",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "functionSelector": "e4fc6b6d",
-            "id": 23618,
+            "id": 15554,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "distribute",
-            "nameLocation": "1037:10:62",
+            "nameLocation": "1037:10:61",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 23616,
+              "id": 15552,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1047:2:62"
+              "src": "1047:2:61"
             },
             "returnParameters": {
-              "id": 23617,
+              "id": 15553,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1058:0:62"
+              "src": "1058:0:61"
             },
-            "scope": 23619,
-            "src": "1028:31:62",
+            "scope": 15555,
+            "src": "1028:31:61",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 23620,
-        "src": "65:997:62",
+        "scope": 15556,
+        "src": "65:997:61",
         "usedErrors": [
-          23592,
-          23594,
-          23596,
-          23598,
-          23600,
-          23602
+          15528,
+          15530,
+          15532,
+          15534,
+          15536,
+          15538
         ]
       }
     ],
-    "src": "38:1024:62"
+    "src": "38:1024:61"
   },
   "compiler": {
     "name": "solc",
@@ -1134,7 +1134,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.7",
-  "updatedAt": "2022-07-25T22:23:12.642Z",
+  "updatedAt": "2022-07-27T19:05:13.917Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
