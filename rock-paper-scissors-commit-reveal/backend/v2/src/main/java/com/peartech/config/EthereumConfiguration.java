@@ -1,5 +1,6 @@
 package com.peartech.config;
 
+import com.peartech.bot.Bot;
 import com.peartech.contracts.GameV2;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
@@ -21,6 +22,9 @@ public class EthereumConfiguration {
     private String host;
     @Value("${eth.port}")
     private Integer port;
+
+    @Value("${eth.botAddress}")
+    private String botAddress;
     @Value("${eth.botWalletPrivateKey}")
     private String botPrivateKey;
     @Value("${eth.contractAddress}")
@@ -29,6 +33,11 @@ public class EthereumConfiguration {
     @Bean
     public Web3j web3j() {
         return Web3j.build(new HttpService(host + ':' + port));
+    }
+
+    @Bean
+    public Bot bot() {
+        return new Bot(botPrivateKey);
     }
 
     @Bean

@@ -17,7 +17,6 @@ import java.util.List;
 public class ApplicationStartup implements ApplicationListener<ApplicationReadyEvent> {
 
     private final Web3j web3j;
-
     private final GameV2 gameV2;
 
     public ApplicationStartup(Web3j web3j, GameV2 gameV2) {
